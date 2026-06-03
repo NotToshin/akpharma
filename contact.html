@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Meridian Pharma — Reach our team in Dhaka, Bangladesh for product enquiries, physician partnerships, and career questions." />
+  <title>Contact Us | Meridian Pharma</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Contact page extras */
+    .contact-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+    }
+
+    .contact-form-wrap h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-form-wrap > p {
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--gray-100);
+      padding-bottom: 0;
+    }
+
+    .contact-tab {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--t-fast), border-color var(--t-fast);
+      background: none;
+    }
+
+    .contact-tab.active {
+      color: var(--navy);
+      border-bottom-color: var(--accent);
+    }
+
+    .contact-tab:hover:not(.active) {
+      color: var(--navy);
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .quick-link-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      transition: border-color var(--t-med), box-shadow var(--t-med);
+      cursor: pointer;
+    }
+
+    .quick-link-card:hover {
+      border-color: var(--navy-faint);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quick-link-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quick-link-icon svg {
+      width: 18px; height: 18px;
+      stroke: white; fill: none; stroke-width: 1.75;
+    }
+
+    .quick-link-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .quick-link-sub {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      margin-top: 0.125rem;
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .hours-table td {
+      padding: 0.625rem 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .hours-table td:first-child {
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    .hours-table td:last-child {
+      text-align: right;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .hours-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #1a9c54;
+      margin-right: 6px;
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
+  <nav class="nav nav--dark" id="mainNav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">
+          <span class="nav__logo-name">Meridian Pharma</span>
+          <span class="nav__logo-tag">Bangladesh</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="index.html"    class="nav__link">Home</a></li>
+          <li><a href="about.html"    class="nav__link">About Us</a></li>
+          <li><a href="products.html" class="nav__link">Products</a></li>
+          <li><a href="careers.html"  class="nav__link">Careers</a></li>
+          <li><a href="contact.html"  class="nav__link active">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn--outline-white nav__cta">Contact Us</a>
+        <button class="nav__hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About Us</a>
+      <a href="products.html" class="nav__link">Products</a>
+      <a href="careers.html"  class="nav__link">Careers</a>
+      <a href="contact.html"  class="nav__link active">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ══ PAGE HERO ════════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="page-hero__pattern"></div>
+    <div class="page-hero__glow"></div>
+    <div class="container">
+      <span class="eyebrow eyebrow--white">Get in Touch</span>
+      <h1>We're Here to Help</h1>
+      <p>Whether you're a physician seeking product information, a partner exploring collaboration, or a professional interested in joining our team — our team is ready to respond.</p>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT MAIN ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- LEFT: Info Column -->
+        <div>
+          <span class="eyebrow">Our Details</span>
+          <h2 style="margin-bottom:2rem;">Reach Us Directly</h2>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <div class="contact-info__label">Head Office</div>
+              <div class="contact-info__value">House 24, Road 12, Block C<br>Banani, Dhaka-1213, Bangladesh</div>
+              <div class="contact-info__sub">Near Banani Police Station</div>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-info__label">Phone</div>
+              <div class="contact-info__value">+880 1800-000000</div>
+              <div class="contact-info__sub">Sun – Thu, 9:00 AM – 6:00 PM</div>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-info__label">Email</div>
+              <div class="contact-info__value">info@meridianpharmabd.com</div>
+              <div class="contact-info__sub">General enquiries &amp; partnerships</div>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-info__label">Careers</div>
+              <div class="contact-info__value">careers@meridianpharmabd.com</div>
+              <div class="contact-info__sub">Recruitment &amp; HR queries</div>
+            </div>
+          </div>
+
+          <div class="contact-info__item" style="border-bottom:none;">
+            <div class="contact-info__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div>
+              <div class="contact-info__label">Warehouse &amp; Logistics</div>
+              <div class="contact-info__value">Plot 45, BSCIC Industrial Area<br>Gazipur, Dhaka</div>
+              <div class="contact-info__sub">Distribution &amp; inventory operations</div>
+            </div>
+          </div>
+
+          <!-- Office Hours -->
+          <div style="margin-top:2rem; background:var(--gray-50); border:1px solid var(--gray-100); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">
+              <span class="status-dot"></span>
+              <h5 style="font-size:0.875rem;">Office Hours</h5>
+            </div>
+            <p style="font-size:0.8125rem;color:var(--gray-400);margin-bottom:0;">Currently open</p>
+            <table class="hours-table">
+              <tr><td>Sunday – Thursday</td><td>9:00 AM – 6:00 PM</td></tr>
+              <tr><td>Friday</td><td>9:00 AM – 1:00 PM</td></tr>
+              <tr><td>Saturday</td><td>Closed</td></tr>
+              <tr><td>Public Holidays</td><td>Closed</td></tr>
+            </table>
+          </div>
+
+          <!-- Map Placeholder -->
+          <div class="map-placeholder">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.438082856573!2d90.40175497538505!3d23.793715586626163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70ed6fbd68b%3A0x57e6d8a3e2e8e5e0!2sBanani%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1699000000000!5m2!1sen!2sbd"
+              width="100%"
+              height="260"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Meridian Pharma Office Location – Banani, Dhaka">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact Form -->
+        <div class="contact-form-wrap">
+          <h3>Send Us a Message</h3>
+          <p>Fill in the form below and a member of our team will respond within 1–2 business days.</p>
+
+          <!-- Tabs -->
+          <div class="contact-tabs">
+            <button class="contact-tab active" onclick="switchTab(this, 'general')">General Enquiry</button>
+            <button class="contact-tab" onclick="switchTab(this, 'physician')">Physician Enquiry</button>
+            <button class="contact-tab" onclick="switchTab(this, 'partner')">Partnership</button>
+          </div>
+
+          <form id="contactForm" novalidate>
+
+            <!-- General Enquiry Fields -->
+            <div id="tab-general">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="c-fname">First Name *</label>
+                  <input class="form-input" type="text" id="c-fname" name="fname" placeholder="First name" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="c-lname">Last Name *</label>
+                  <input class="form-input" type="text" id="c-lname" name="lname" placeholder="Last name" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="c-email">Email Address *</label>
+                <input class="form-input" type="email" id="c-email" name="email" placeholder="your@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="c-phone">Phone Number</label>
+                <input class="form-input" type="tel" id="c-phone" name="phone" placeholder="+880 1xxx-xxxxxx" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="c-subject">Subject *</label>
+                <select class="form-select" id="c-subject" name="subject" required>
+                  <option value="" disabled selected>Select a subject</option>
+                  <option>Product Information Request</option>
+                  <option>Distributor / Pharmacy Enquiry</option>
+                  <option>Media &amp; Press</option>
+                  <option>Regulatory Affairs</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="c-message">Message *</label>
+                <textarea class="form-textarea" id="c-message" name="message" rows="5" placeholder="Please describe your enquiry in detail..." required></textarea>
+              </div>
+            </div>
+
+            <!-- Physician Enquiry Fields -->
+            <div id="tab-physician" style="display:none;">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="p-name">Full Name with Title *</label>
+                  <input class="form-input" type="text" id="p-name" name="p-name" placeholder="e.g. Dr. Farhan Ahmed" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="p-spec">Specialty *</label>
+                  <select class="form-select" id="p-spec" name="p-spec" required>
+                    <option value="" disabled selected>Select specialty</option>
+                    <option>General Practice (MBBS)</option>
+                    <option>Obstetrics &amp; Gynaecology</option>
+                    <option>Internal Medicine</option>
+                    <option>Paediatrics</option>
+                    <option>Urology / Andrology</option>
+                    <option>Endocrinology</option>
+                    <option>Cardiology</option>
+                    <option>Other Specialty</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-hospital">Hospital / Clinic Affiliation</label>
+                <input class="form-input" type="text" id="p-hospital" name="p-hospital" placeholder="e.g. Dhaka Medical College Hospital" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-email">Professional Email *</label>
+                <input class="form-input" type="email" id="p-email" name="p-email" placeholder="doctor@hospital.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-product">Product(s) of Interest</label>
+                <select class="form-select" id="p-product" name="p-product">
+                  <option value="" disabled selected>Select product category</option>
+                  <option>Maternal Health Products</option>
+                  <option>Sexual Wellness Products</option>
+                  <option>Vitamins &amp; Supplements</option>
+                  <option>Multiple Categories</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-message">Clinical Query or Request</label>
+                <textarea class="form-textarea" id="p-message" name="p-message" rows="4" placeholder="Describe your clinical query, sample request, or what information would be helpful for your prescribing decisions..."></textarea>
+              </div>
+            </div>
+
+            <!-- Partnership Fields -->
+            <div id="tab-partner" style="display:none;">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="pt-name">Contact Name *</label>
+                  <input class="form-input" type="text" id="pt-name" name="pt-name" placeholder="Full name" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="pt-org">Organisation *</label>
+                  <input class="form-input" type="text" id="pt-org" name="pt-org" placeholder="Company / institution name" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pt-email">Business Email *</label>
+                <input class="form-input" type="email" id="pt-email" name="pt-email" placeholder="business@company.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pt-type">Partnership Type *</label>
+                <select class="form-select" id="pt-type" name="pt-type" required>
+                  <option value="" disabled selected>Select partnership type</option>
+                  <option>Pharmaceutical Manufacturer / Supplier</option>
+                  <option>Wholesale Distributor</option>
+                  <option>Hospital / Institutional Procurement</option>
+                  <option>Medical Conference / CME Organiser</option>
+                  <option>Investment / Strategic Partnership</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pt-message">Partnership Proposal *</label>
+                <textarea class="form-textarea" id="pt-message" name="pt-message" rows="5" placeholder="Please outline the nature of the partnership you are proposing and the potential value for both parties..."></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding-top:1rem; padding-bottom:1rem; margin-top:0.5rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              Send Message
+            </button>
+            <p class="form-note">We respect your privacy. Your information is used solely to respond to this enquiry and is never sold or shared with third parties.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUICK LINKS ═══════════════════════════════════════════ -->
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-header centered">
+        <span class="eyebrow">Helpful Links</span>
+        <h2>Not Sure Where to Start?</h2>
+        <p class="lead">Use the quick links below to find what you're looking for.</p>
+      </div>
+      <div style="max-width:720px; margin:0 auto;">
+        <div class="quick-links">
+          <a href="products.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M8 13H16M8 17H13"/></svg>
+            </div>
+            <div>
+              <div class="quick-link-text">View Product Portfolio</div>
+              <div class="quick-link-sub">Browse all 40+ SKUs</div>
+            </div>
+          </a>
+          <a href="careers.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <div class="quick-link-text">Career Opportunities</div>
+              <div class="quick-link-sub">Join our MR team</div>
+            </div>
+          </a>
+          <a href="about.html" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div>
+              <div class="quick-link-text">About Meridian Pharma</div>
+              <div class="quick-link-sub">Our story &amp; values</div>
+            </div>
+          </a>
+          <a href="mailto:info@meridianpharmabd.com" class="quick-link-card">
+            <div class="quick-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <div class="quick-link-text">Email Us Directly</div>
+              <div class="quick-link-sub">info@meridianpharmabd.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA ══════════════════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="cta-section__glow"></div>
+    <div class="container">
+      <div class="cta-section__inner">
+        <span class="eyebrow eyebrow--white">Our Team</span>
+        <h2>A Dedicated Team Ready to Assist</h2>
+        <p>Our Medical Representatives and office staff are trained to respond promptly and professionally to every enquiry. We value each interaction as the beginning of a meaningful professional relationship.</p>
+        <div class="cta-section__actions">
+          <a href="products.html" class="btn btn--primary">Explore Products</a>
+          <a href="careers.html"  class="btn btn--outline-white">Join Our Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Meridian Pharma</div>
+          <div class="footer__brand-tag">Bangladesh · Est. 2014</div>
+          <p class="footer__brand-desc">Advancing healthcare access in Bangladesh through the importation and distribution of clinically validated pharmaceutical products.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="index.html"    class="footer__link">Home</a></li>
+            <li><a href="about.html"    class="footer__link">About Us</a></li>
+            <li><a href="products.html" class="footer__link">Products</a></li>
+            <li><a href="careers.html"  class="footer__link">Careers</a></li>
+            <li><a href="contact.html"  class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Products</h5>
+          <ul class="footer__links">
+            <li><a href="products.html" class="footer__link">Maternal Health</a></li>
+            <li><a href="products.html" class="footer__link">Sexual Wellness</a></li>
+            <li><a href="products.html" class="footer__link">Vitamins &amp; Supplements</a></li>
+            <li><a href="products.html" class="footer__link">Prescription Support</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item">
+            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
+            <span>House 24, Road 12, Banani,<br>Dhaka-1213, Bangladesh</span>
+          </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
+            <span>+880 1800-000000</span>
+          </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
+            <span>info@meridianpharmabd.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">&copy; 2024 Meridian Pharma Ltd. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">DGDA License</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Contact form tab switcher
+    function switchTab(btn, tabId) {
+      document.querySelectorAll('.contact-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      ['general', 'physician', 'partner'].forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        if (el) el.style.display = (id === tabId) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

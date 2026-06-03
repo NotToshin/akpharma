@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Product details — Meridian Pharma" />
+  <title>Product Detail | Meridian Pharma</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Product Detail Page Styles ──────────────────────── */
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      padding: 1.5rem 0 0;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: var(--gray-400);
+      transition: color var(--t-fast);
+    }
+
+    .breadcrumb a:hover { color: var(--accent); }
+
+    .breadcrumb__sep {
+      color: var(--gray-200);
+    }
+
+    .breadcrumb__current {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Detail layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 3.5rem;
+      align-items: start;
+      padding: 2.5rem 0 var(--s-2xl);
+    }
+
+    /* LEFT — image panel */
+    .detail-img-panel {}
+
+    .detail-img-main {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .detail-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2.5rem;
+    }
+
+    /* Placeholder when no image */
+    .detail-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .detail-img-placeholder-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-img-placeholder-icon svg {
+      width: 48px; height: 48px;
+      stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.25;
+    }
+
+    .detail-img-placeholder-note {
+      font-size: 0.8125rem;
+      color: var(--gray-300);
+      max-width: 200px;
+      line-height: 1.5;
+    }
+
+    /* Thumbnails row */
+    .detail-thumbs {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .detail-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-200);
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color var(--t-fast);
+    }
+
+    .detail-thumb.active { border-color: var(--navy); }
+    .detail-thumb:hover { border-color: var(--navy-light); }
+
+    .detail-thumb img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 0.5rem;
+    }
+
+    .detail-thumb-placeholder {
+      width: 30px; height: 30px;
+      stroke: var(--gray-300); fill: none; stroke-width: 1.5;
+    }
+
+    /* RIGHT — info panel */
+    .detail-info {}
+
+    .detail-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .detail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .detail-badge--cat  { background: var(--navy-faint); color: var(--navy); border: 1px solid var(--gray-200); }
+    .detail-badge--rx   { background: rgba(220,60,60,0.08); color: #c0392b; border: 1px solid rgba(220,60,60,0.2); }
+    .detail-badge--otc  { background: rgba(26,156,84,0.1); color: #1a7a45; border: 1px solid rgba(26,156,84,0.2); }
+    .detail-badge--dgda { background: rgba(30,95,212,0.08); color: var(--accent); border: 1px solid rgba(30,95,212,0.18); }
+
+    .detail-name {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-generic {
+      font-size: 1rem;
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+      line-height: 1.4;
+    }
+
+    /* Key specs strip */
+    .detail-specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .detail-spec {
+      padding: 1rem 1.125rem;
+      border-right: 1px solid var(--gray-100);
+      transition: background var(--t-fast);
+    }
+
+    .detail-spec:last-child { border-right: none; }
+    .detail-spec:hover { background: var(--gray-50); }
+
+    .detail-spec__label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-300);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-spec__value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    /* Description */
+    .detail-desc {
+      font-size: 0.9625rem;
+      color: var(--gray-500);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    /* Info accordion / tabs */
+    .detail-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--gray-100);
+      margin-bottom: 1.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .detail-tabs::-webkit-scrollbar { display: none; }
+
+    .detail-tab {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font);
+      white-space: nowrap;
+      transition: color var(--t-fast), border-color var(--t-fast);
+    }
+
+    .detail-tab.active { color: var(--navy); border-bottom-color: var(--accent); }
+    .detail-tab:hover:not(.active) { color: var(--navy); }
+
+    .detail-tab-panel { display: none; }
+    .detail-tab-panel.active { display: block; }
+
+    /* Info table */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table tr:last-child td { border-bottom: none; }
+
+    .info-table td {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 0.875rem;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .info-table td:first-child {
+      font-weight: 700;
+      color: var(--navy);
+      width: 40%;
+      padding-right: 1.25rem;
+    }
+
+    .info-table td:last-child {
+      color: var(--gray-500);
+    }
+
+    /* Indication list */
+    .indication-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .indication-list li {
+      display: flex;
+      gap: 0.625rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .indication-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+
+    /* Warning box */
+    .warning-box {
+      background: rgba(220,60,60,0.05);
+      border: 1px solid rgba(220,60,60,0.15);
+      border-radius: var(--radius-md);
+      padding: 1.125rem 1.25rem;
+      display: flex;
+      gap: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .warning-box svg {
+      width: 20px; height: 20px;
+      stroke: #c0392b; fill: none; stroke-width: 1.75;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .warning-box p {
+      font-size: 0.8375rem;
+      color: #a93226;
+      line-height: 1.6;
+    }
+
+    /* CTA box */
+    .detail-cta-box {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .detail-cta-box h4 { color: var(--white); margin-bottom: 0.5rem; font-size: 1rem; }
+    .detail-cta-box p  { color: rgba(255,255,255,0.55); font-size: 0.875rem; margin-bottom: 1.25rem; }
+
+    .detail-cta-box .btn { width: 100%; justify-content: center; }
+
+    /* Related products */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    /* Sticky sidebar on desktop */
+    .detail-info-sticky {
+      position: sticky;
+      top: 96px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .detail-info-sticky { position: static; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-specs { grid-template-columns: 1fr 1fr; }
+      .detail-spec:nth-child(2) { border-right: none; }
+      .detail-spec:nth-child(3) { border-top: 1px solid var(--gray-100); grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 480px) {
+      .detail-specs { grid-template-columns: 1fr; }
+      .detail-spec { border-right: none !important; border-top: 1px solid var(--gray-100); }
+      .detail-spec:first-child { border-top: none; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">
+          <span class="nav__logo-name">Meridian Pharma</span>
+          <span class="nav__logo-tag">Bangladesh</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="index.html"    class="nav__link">Home</a></li>
+          <li><a href="about.html"    class="nav__link">About Us</a></li>
+          <li><a href="products.html" class="nav__link active">Products</a></li>
+          <li><a href="careers.html"  class="nav__link">Careers</a></li>
+          <li><a href="contact.html"  class="nav__link">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn--outline nav__cta">Contact Us</a>
+        <button class="nav__hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About Us</a>
+      <a href="products.html" class="nav__link active">Products</a>
+      <a href="careers.html"  class="nav__link">Careers</a>
+      <a href="contact.html"  class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ══ MAIN CONTAINER ═══════════════════════════════════════ -->
+  <div class="container" style="padding-top:72px;">
+
+    <!-- Breadcrumb (populated by JS) -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb__sep">›</span>
+      <a href="products.html">Products</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current" id="bcName">Loading…</span>
+    </nav>
+
+    <!-- Detail grid -->
+    <div class="detail-grid">
+
+      <!-- LEFT — image panel -->
+      <div class="detail-img-panel">
+        <div class="detail-img-main" id="mainImgWrap">
+          <!-- Filled by JS -->
+        </div>
+        <!-- Thumbnail strip (shown only when multiple images) -->
+        <div class="detail-thumbs" id="thumbStrip" style="display:none;"></div>
+      </div>
+
+      <!-- RIGHT — info panel (sticky on desktop) -->
+      <div class="detail-info-sticky">
+        <div class="detail-info" id="detailInfo">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Full detail tabs section -->
+    <div style="max-width:900px; margin: 0 auto var(--s-2xl);" id="tabsSection">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Related products -->
+    <div id="relatedSection" style="margin-bottom:var(--s-2xl);">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Meridian Pharma</div>
+          <div class="footer__brand-tag">Bangladesh · Est. 2014</div>
+          <p class="footer__brand-desc">Advancing healthcare access in Bangladesh through the importation and distribution of clinically validated pharmaceutical products.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Navigate</h5>
+          <ul class="footer__links">
+            <li><a href="index.html"    class="footer__link">Home</a></li>
+            <li><a href="about.html"    class="footer__link">About Us</a></li>
+            <li><a href="products.html" class="footer__link">Products</a></li>
+            <li><a href="careers.html"  class="footer__link">Careers</a></li>
+            <li><a href="contact.html"  class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Categories</h5>
+          <ul class="footer__links">
+            <li><a href="products.html" class="footer__link">Maternal Health</a></li>
+            <li><a href="products.html" class="footer__link">Sexual Wellness</a></li>
+            <li><a href="products.html" class="footer__link">Vitamins &amp; Supplements</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contact</h5>
+          <div class="footer__contact-item">
+            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
+            <span>info@meridianpharmabd.com</span>
+          </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
+            <span>+880 1800-000000</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">&copy; 2024 Meridian Pharma Ltd. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">DGDA License</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  /* ============================================================
+     PRODUCT DETAIL — Data Catalogue
+     ============================================================
+     Each product entry mirrors what's in products.html PRODUCTS[].
+     Fill in the detail fields below to populate the detail page.
+
+     Fields:
+       id           — must match the URL ?id= parameter
+       name         — Trade name
+       generic      — Generic / INN name
+       category     — maternal | wellness | vitamins
+       therapeuticClass — e.g. "Prenatal Supplements"
+       form         — Dosage form + pack size
+       rx           — true = prescription only
+       img          — Path to product image ('' = placeholder)
+       images       — Array of additional images for thumbnail strip
+       strength     — e.g. '5mg', '5000 IU'
+       manufacturer — Originator manufacturer name
+       origin       — Country of origin
+       storage      — e.g. 'Store below 25°C, away from light'
+       shelfLife    — e.g. '24 months from manufacture'
+       dgdaReg      — DGDA registration number
+       description  — Short paragraph (shown above tabs)
+       indications  — Array of indication strings
+       dosage       — Dosage & administration text
+       composition  — Table rows: [ ['Component', 'Amount per unit'], … ]
+       contraindications — Text
+       sideEffects  — Text
+       interactions — Text
+       warnings     — Text (shown in red warning box if rx=true)
+       storage_full — Full storage instructions (tab)
+  ============================================================ */
+
+  const CATALOGUE = {
+
+    'folacin-forte': {
+      id:               'folacin-forte',
+      name:             'Folacin Forte 5mg',
+      generic:          'Folic Acid',
+      category:         'maternal',
+      therapeuticClass: 'Prenatal Supplements',
+      form:             'Film-Coated Tablet',
+      packSize:         '30 Tablets / Blister',
+      rx:               false,
+      img:              '',          // ← add image path here
+      images:           [],
+      strength:         '5 mg',
+      manufacturer:     'Placeholder Pharma GmbH, Germany',
+      origin:           'Germany',
+      storage:          'Below 25°C · Protect from light',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Folacin Forte 5mg is a high-dose folic acid supplement specifically formulated for periconceptional use. Adequate folic acid intake during the weeks before and after conception significantly reduces the risk of neural tube defects including spina bifida and anencephaly. This formulation provides five times the standard supplementation dose, as indicated in women with elevated risk factors.',
+      indications: [
+        'Prevention of neural tube defects in women planning pregnancy',
+        'High-risk pregnancies (personal or family history of NTDs)',
+        'Folate deficiency megaloblastic anaemia',
+        'Women on anti-epileptic medications requiring folate supplementation',
+        'Prevention of recurrence of NTDs in subsequent pregnancies',
+      ],
+      dosage:           'One tablet daily, commencing at least one month before conception and continuing through the first trimester. For women at high risk, as directed by a physician.',
+      composition: [
+        ['Folic Acid (Pteroylmonoglutamic Acid)', '5.0 mg'],
+        ['Microcrystalline Cellulose', 'q.s.'],
+        ['Hydroxypropyl Methylcellulose', 'q.s.'],
+        ['Titanium Dioxide', 'q.s.'],
+      ],
+      contraindications: 'Hypersensitivity to folic acid or any excipient. Folic acid should not be used for the treatment of pernicious anaemia or other vitamin B12 deficiency states without concurrent B12 supplementation.',
+      sideEffects:       'Generally well tolerated. Rarely: mild gastrointestinal disturbances (nausea, flatulence). Hypersensitivity reactions are extremely rare.',
+      interactions:      'Antiepileptics (phenytoin, carbamazepine) may reduce folic acid levels. Methotrexate antagonises folic acid. Sulphasalazine and trimethoprim reduce absorption.',
+      warnings:          '',
+      storage_full:      'Store in a cool, dry place below 25°C. Protect from direct sunlight and moisture. Keep out of reach of children. Do not use after the expiry date printed on the packaging.',
+    },
+
+    'ferrogest-ob': {
+      id:               'ferrogest-ob',
+      name:             'Ferrogest OB',
+      generic:          'Ferrous Bisglycinate + Vitamin C + Vitamin B12',
+      category:         'maternal',
+      therapeuticClass: 'Iron Preparations',
+      form:             'Soft Gelatin Capsule',
+      packSize:         '30 Capsules / Blister',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Fe 30mg + Vit C 60mg + B12 10mcg',
+      manufacturer:     'Placeholder BioPharm Ltd, South Korea',
+      origin:           'South Korea',
+      storage:          'Below 25°C · Protect from light & moisture',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Ferrogest OB provides iron in the highly bioavailable bisglycinate chelate form, which is absorbed 2–3× more efficiently than ferrous sulphate and is significantly better tolerated. The inclusion of Vitamin C further enhances iron absorption while Vitamin B12 supports normal haematopoiesis. Formulated to minimise the gastrointestinal side effects commonly associated with iron therapy in pregnancy.',
+      indications: [
+        'Iron deficiency and iron deficiency anaemia during pregnancy and lactation',
+        'Prevention of iron deficiency in at-risk pregnant women',
+        'Postpartum iron repletion following blood loss',
+        'Adjunct in megaloblastic anaemia associated with B12 deficiency',
+      ],
+      dosage:           'One capsule once daily with or after food. For established anaemia, dosing may be increased to twice daily as directed by a physician.',
+      composition: [
+        ['Ferrous Bisglycinate (elemental iron 30mg)', '150 mg'],
+        ['Ascorbic Acid (Vitamin C)', '60 mg'],
+        ['Cyanocobalamin (Vitamin B12)', '10 mcg'],
+        ['Gelatin capsule shell', 'q.s.'],
+      ],
+      contraindications: 'Haemochromatosis, haemosiderosis, haemolytic anaemia. Hypersensitivity to any ingredient.',
+      sideEffects:       'Ferrous bisglycinate is exceptionally well-tolerated. Occasional mild nausea or dark stools (harmless). Constipation is uncommon compared to ferrous sulphate.',
+      interactions:      'Concurrent antacids, tetracyclines, or quinolone antibiotics may reduce iron absorption — administer at least 2 hours apart. Vitamin C enhances absorption of this formulation.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a dry place, protected from light. Keep in original packaging. Do not refrigerate. Keep out of reach of children.',
+    },
+
+    'prenatal-complete': {
+      id:               'prenatal-complete',
+      name:             'Prenatal Complete Plus',
+      generic:          'Multivitamin + DHA + Iron + Calcium',
+      category:         'maternal',
+      therapeuticClass: 'Prenatal Supplements',
+      form:             'Film-Coated Tablet',
+      packSize:         '60 Tablets / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         '18-Nutrient Formula',
+      manufacturer:     'Placeholder Nutra BV, Netherlands',
+      origin:           'Netherlands',
+      storage:          'Below 25°C · Dry, dark conditions',
+      shelfLife:        '30 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Prenatal Complete Plus is a comprehensive once-daily prenatal multivitamin providing 18 essential micronutrients in clinically validated doses. The formulation incorporates DHA for fetal neural development, chelated iron to minimise GI side effects, calcium for bone mineralisation, iodine for thyroid function, and methylated folate for optimal bioavailability — particularly in women carrying the MTHFR gene variant.',
+      indications: [
+        'Nutritional supplementation throughout all three trimesters of pregnancy',
+        'Pre-pregnancy supplementation from at least 3 months before conception',
+        'Postpartum and breastfeeding nutritional support',
+        'Women with dietary restrictions (vegetarian, vegan, food allergies)',
+      ],
+      dosage:           'One tablet daily with a meal. Best taken consistently at the same time each day. Continue throughout pregnancy and during breastfeeding as advised.',
+      composition: [
+        ['Methyltetrahydrofolate (Active Folate)', '800 mcg'],
+        ['DHA (from algal oil)', '200 mg'],
+        ['Ferrous Bisglycinate (elemental iron 18mg)', '90 mg'],
+        ['Calcium Carbonate (elemental Ca 150mg)', '375 mg'],
+        ['Cholecalciferol (Vitamin D3)', '600 IU'],
+        ['Iodine (as potassium iodide)', '150 mcg'],
+        ['Vitamin B6 (Pyridoxine HCl)', '1.9 mg'],
+        ['Vitamin B12 (Methylcobalamin)', '2.6 mcg'],
+        ['Vitamin C (Ascorbic Acid)', '70 mg'],
+        ['Vitamin E (d-alpha Tocopherol)', '10 mg'],
+        ['Zinc (as zinc bisglycinate)', '11 mg'],
+        ['Magnesium (as magnesium citrate)', '50 mg'],
+      ],
+      contraindications: 'Hypervitaminosis A or D. Hypercalcaemia. Iron overload disorders. Hypersensitivity to any ingredient.',
+      sideEffects:       'Generally very well tolerated. Rare: mild nausea (take with food), harmless discolouration of urine (riboflavin). Very rarely: allergic reactions.',
+      interactions:      'Do not take simultaneously with other multivitamin/mineral supplements to avoid exceeding safe upper limits of fat-soluble vitamins.',
+      warnings:          '',
+      storage_full:      'Store in a cool, dry place below 25°C, away from heat and direct sunlight. Bottle contains desiccant — do not consume. Replace cap tightly after use.',
+    },
+
+    'calcidex-maternal': {
+      id:               'calcidex-maternal',
+      name:             'Calcidex Maternal',
+      generic:          'Calcium Carbonate + Vitamin D3 + Magnesium',
+      category:         'maternal',
+      therapeuticClass: 'Calcium Preparations',
+      form:             'Chewable Tablet',
+      packSize:         '60 Tablets / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Ca 500mg + D3 400IU + Mg 50mg',
+      manufacturer:     'Placeholder Pharma S.p.A., Italy',
+      origin:           'Italy',
+      storage:          'Below 25°C · Protect from moisture',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Calcidex Maternal is a pleasant-tasting chewable calcium supplement designed specifically for pregnant and lactating women. Calcium demand increases significantly during gestation as fetal skeletal development requires approximately 250–350mg of calcium daily from the maternal supply. Vitamin D3 ensures effective intestinal absorption while magnesium helps regulate calcium metabolism and supports smooth muscle function during labour.',
+      indications: [
+        'Prevention of calcium deficiency during pregnancy and lactation',
+        'Support of fetal skeletal mineralisation in all trimesters',
+        'Management of leg cramps in pregnancy (magnesium component)',
+        'Prevention of pregnancy-induced hypertension (supplementary measure)',
+        'Osteoporosis prevention in at-risk mothers',
+      ],
+      dosage:           'One to two chewable tablets daily after a meal. Chew thoroughly before swallowing. Dosage as directed by physician based on dietary calcium intake.',
+      composition: [
+        ['Calcium Carbonate (elemental Ca 500mg)', '1250 mg'],
+        ['Cholecalciferol (Vitamin D3)', '400 IU'],
+        ['Magnesium Oxide (elemental Mg 50mg)', '83 mg'],
+        ['Xylitol, natural fruit flavouring', 'q.s.'],
+      ],
+      contraindications: 'Hypercalcaemia, hypercalciuria, nephrolithiasis (calcium oxalate stones). Severe renal impairment. Hypersensitivity to any ingredient.',
+      sideEffects:       'Well tolerated. May cause mild constipation or bloating — reduce dose or increase water intake. Calcium-containing tablets may cause whitish tongue coating (transient, harmless).',
+      interactions:      'Calcium reduces absorption of iron and zinc — separate doses by at least 2 hours. Thiazide diuretics may increase risk of hypercalcaemia.',
+      warnings:          '',
+      storage_full:      'Store in a cool, dry place below 25°C. Keep lid tightly closed. Contains desiccant sachet — do not eat. Best consumed within 60 days of opening.',
+    },
+
+    'omega-natal-dha': {
+      id:               'omega-natal-dha',
+      name:             'Omega Natal DHA',
+      generic:          'Fish Oil Concentrate (DHA 300mg, EPA 60mg)',
+      category:         'maternal',
+      therapeuticClass: 'Omega Fatty Acids',
+      form:             'Softgel Capsule',
+      packSize:         '30 Softgels / Blister',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'DHA 300mg · EPA 60mg per capsule',
+      manufacturer:     'Placeholder Marine Biotech, Norway',
+      origin:           'Norway',
+      storage:          'Below 25°C · Refrigerate after opening',
+      shelfLife:        '18 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Omega Natal DHA delivers a high-concentration DHA supplement derived from sustainable deep-sea anchovies, molecularly distilled to remove heavy metals, PCBs and dioxins. DHA is the predominant omega-3 fatty acid in the fetal brain and retina; adequate maternal DHA intake during the third trimester is associated with improved cognitive outcomes, visual acuity, and birth weight in infants. Each softgel delivers 300mg DHA — the dose endorsed by international obstetric guidelines.',
+      indications: [
+        'Supplementation of DHA during pregnancy for fetal brain and retinal development',
+        'Prevention of preterm labour (supportive evidence for high-dose omega-3)',
+        'Postpartum depression prevention (supportive evidence)',
+        'Maternal cardiovascular and anti-inflammatory support',
+        'Infants of mothers deficient in dietary omega-3 (via breast milk transfer)',
+      ],
+      dosage:           'One softgel daily with a main meal during pregnancy. Can be taken with the prenatal multivitamin. Continue during breastfeeding for continued fetal/infant benefit.',
+      composition: [
+        ['Fish Oil Concentrate (IFOS 5-Star Certified)', '1000 mg'],
+        ['  — of which DHA', '300 mg'],
+        ['  — of which EPA', '60 mg'],
+        ['Vitamin E (as antioxidant)', '5 IU'],
+        ['Softgel: Gelatin, Glycerol, Water', 'q.s.'],
+      ],
+      contraindications: 'Allergy to fish or fish products. Bleeding disorders. Concurrent anticoagulant therapy at therapeutic doses — consult physician.',
+      sideEffects:       'Occasional mild fishy aftertaste (take with food or refrigerate capsule before swallowing). Rarely: loose stools at high doses.',
+      interactions:      'May potentiate anticoagulant and antiplatelet effects of warfarin and aspirin — monitor INR if concurrent use.',
+      warnings:          '',
+      storage_full:      'Store below 25°C before opening. Refrigerate after opening and use within 3 months. Do not freeze. Keep away from light and heat sources.',
+    },
+
+    'progest-support': {
+      id:               'progest-support',
+      name:             'Progest Support 200',
+      generic:          'Micronized Progesterone',
+      category:         'maternal',
+      therapeuticClass: 'Progestins',
+      form:             'Capsule (oral / vaginal)',
+      packSize:         '30 Capsules / Blister',
+      rx:               true,
+      img:              '',
+      images:           [],
+      strength:         '200 mg',
+      manufacturer:     'Placeholder Endocrine Labs, France',
+      origin:           'France',
+      storage:          'Below 25°C · Protect from light',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Progest Support 200 contains micronized progesterone — a bio-identical form of the naturally occurring female hormone. Micronization ensures optimal absorption via both oral and vaginal routes. It is widely prescribed for luteal phase support in assisted reproduction, prevention of preterm birth in women with a short cervix, and management of threatened miscarriage in early pregnancy where low progesterone levels have been confirmed.',
+      indications: [
+        'Luteal phase support in IVF and assisted reproductive technology cycles',
+        'Threatened and recurrent miscarriage with confirmed progesterone deficiency',
+        'Prevention of preterm labour in women with a cervical length <25mm',
+        'Progesterone deficiency states in premenopausal women',
+        'Hormone replacement therapy (adjunct to oestrogen) in peri/postmenopausal women',
+      ],
+      dosage:           'Oral: 200–400mg daily in divided doses (at bedtime to minimise somnolence). Vaginal: 200–400mg daily. Dosing regimen and duration as prescribed by specialist physician.',
+      composition: [
+        ['Micronized Progesterone (bio-identical)', '200 mg'],
+        ['Peanut Oil (carrier)', '200 mg'],
+        ['Soy Lecithin (emulsifier)', 'q.s.'],
+        ['Gelatin capsule shell', 'q.s.'],
+      ],
+      contraindications: 'Undiagnosed vaginal bleeding. Severe hepatic impairment. Known or suspected progesterone-dependent neoplasm. Peanut allergy (contains peanut oil). Thromboembolic disorders.',
+      sideEffects:       'Somnolence and dizziness (take at bedtime for oral route). Vaginal discharge or irritation (vaginal route). Breast tenderness. Headache. Mood changes.',
+      interactions:      'Rifampicin and anti-epileptics may reduce progesterone levels. Ketoconazole may increase plasma levels. May antagonise effects of bromocriptine.',
+      warnings:          'PRESCRIPTION ONLY. Not to be dispensed without a valid prescription from a licensed medical practitioner. Contains peanut oil — do not use in patients with peanut allergy. Somnolence may impair ability to drive or operate machinery.',
+      storage_full:      'Store in a cool, dry place below 25°C, away from direct sunlight. Do not refrigerate — cold temperatures may solidify the oil base. Keep in original blister pack until use.',
+    },
+
+    'androplex-forte': {
+      id:               'androplex-forte',
+      name:             'Androplex Forte',
+      generic:          'Zinc + L-Arginine + Tribulus Terrestris + Maca Root',
+      category:         'wellness',
+      therapeuticClass: 'Male Sexual Health Supplements',
+      form:             'Hard Capsule',
+      packSize:         '30 Capsules / Blister',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Zn 15mg · L-Arg 500mg · Tribulus 250mg · Maca 200mg',
+      manufacturer:     'Placeholder Nutraceuticals Inc, USA',
+      origin:           'USA',
+      storage:          'Below 25°C · Dry conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Androplex Forte is a clinically formulated blend of zinc, L-Arginine, Tribulus terrestris standardised extract, and Peruvian Maca root — four evidence-supported nutrients that work synergistically to support testosterone balance, nitric oxide production, libido, and overall male reproductive vitality. Designed for adult males experiencing fatigue, reduced drive, or sub-optimal performance.',
+      indications: [
+        'Support of healthy testosterone levels in adult males',
+        'Management of fatigue and reduced vitality associated with androgen decline',
+        'Libido support in men aged 30 and above',
+        'Pre-fertility preparation (adjunct to clinical evaluation)',
+        'Athletic performance and recovery support',
+      ],
+      dosage:           'One to two capsules daily with a meal. For best results, take consistently for a minimum of 8 weeks. Not intended for use under 18 years of age.',
+      composition: [
+        ['Zinc (as zinc bisglycinate)', '15 mg'],
+        ['L-Arginine HCl', '500 mg'],
+        ['Tribulus Terrestris Extract (40% saponins)', '250 mg'],
+        ['Lepidium Meyenii (Maca Root) 4:1 extract', '200 mg'],
+        ['Vegetable cellulose capsule', 'q.s.'],
+      ],
+      contraindications: 'Hypersensitivity to any ingredient. Not recommended for men on anticoagulant therapy (L-Arginine interaction). Avoid in active cancer treatment.',
+      sideEffects:       'Generally well tolerated. Occasionally: mild GI discomfort if taken on an empty stomach. L-Arginine may cause loose stools at high doses.',
+      interactions:      'L-Arginine may potentiate hypotensive effects of antihypertensives and PDE-5 inhibitors. Discuss with prescriber if on nitrate medications.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a dry, dark location. Not a substitute for medical treatment. Consult a physician before use if taking prescription medications.',
+    },
+
+    'femivite-hormonal': {
+      id:               'femivite-hormonal',
+      name:             'Femivite Hormonal Balance',
+      generic:          'Vitex Agnus-Castus Extract + Vitamin B6 + B2 + Magnesium',
+      category:         'wellness',
+      therapeuticClass: 'Female Hormonal Support',
+      form:             'Film-Coated Tablet',
+      packSize:         '30 Tablets / Blister',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Vitex 40mg + B6 50mg + Mg 100mg',
+      manufacturer:     'Placeholder Herbal Sciences, Germany',
+      origin:           'Germany',
+      storage:          'Below 25°C · Protect from light',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      "Femivite Hormonal Balance combines the clinically studied Vitex agnus-castus (chaste tree) extract with Vitamin B6, B2, and Magnesium to provide comprehensive support for female hormonal equilibrium. Vitex acts on the pituitary gland to normalise prolactin levels and LH/FSH ratios, alleviating premenstrual tension, irregular cycles, and cycle-related mood disturbances. Suitable for women of reproductive age experiencing cyclical hormonal symptoms.",
+      indications: [
+        'Premenstrual syndrome (PMS) — mood changes, breast tenderness, bloating',
+        'Irregular menstrual cycles (oligomenorrhoea, amenorrhoea)',
+        'Hyperprolactinaemia (mild, non-pathological elevation)',
+        'Cyclical mastalgia (breast pain)',
+        'Perimenopausal hormonal fluctuations',
+      ],
+      dosage:           'One tablet daily in the morning with water. Clinical studies show benefit after 3 menstrual cycles of consistent use. Best taken long-term for hormonal regulation.',
+      composition: [
+        ['Vitex Agnus-Castus Dry Extract (standardised)', '40 mg'],
+        ['Pyridoxine HCl (Vitamin B6)', '50 mg'],
+        ['Riboflavin (Vitamin B2)', '1.4 mg'],
+        ['Magnesium (as magnesium citrate)', '100 mg'],
+      ],
+      contraindications: 'Pregnancy (do not use during pregnancy — discontinue upon confirmed conception). Hormone-sensitive conditions. Concurrent dopamine antagonist therapy.',
+      sideEffects:       'Very rarely: mild GI disturbance, headache, skin rash. Vitex may initially alter cycle timing before stabilising — this normalises within 1–2 cycles.',
+      interactions:      'May interfere with dopamine antagonists (antipsychotics, metoclopramide). Avoid concurrent hormonal contraceptives without physician guidance.',
+      warnings:          '',
+      storage_full:      'Store below 25°C, protected from light and moisture. Discontinue if pregnancy is confirmed. Keep out of reach of children.',
+    },
+
+    'fertivit-male': {
+      id:               'fertivit-male',
+      name:             'Fertivit Male Rx',
+      generic:          'CoQ10 + Selenium + Vitamin E + Lycopene + Zinc',
+      category:         'wellness',
+      therapeuticClass: 'Male Fertility Supplements',
+      form:             'Effervescent Sachet',
+      packSize:         '30 Sachets / Box',
+      rx:               true,
+      img:              '',
+      images:           [],
+      strength:         'CoQ10 100mg · Se 70mcg · Vit E 400IU · Lyc 10mg',
+      manufacturer:     'Placeholder Reproductive Sciences, Italy',
+      origin:           'Italy',
+      storage:          'Below 25°C · Dry conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Fertivit Male Rx is a prescription-grade antioxidant micronutrient combination backed by clinical studies demonstrating improvements in sperm concentration, progressive motility, and normal morphology. Oxidative stress in seminal plasma is a major reversible contributor to male factor infertility. The combination of CoQ10, Selenium, Vitamin E, Lycopene, and Zinc has been shown in randomised trials to significantly reduce reactive oxygen species and improve sperm DNA fragmentation indices.',
+      indications: [
+        'Male factor subfertility — oligospermia, asthenospermia, teratospermia',
+        'Elevated sperm DNA fragmentation index',
+        'Idiopathic male infertility undergoing ART (IVF/ICSI) preparation',
+        'Varicocoele-associated oxidative stress (post-surgical or pre-surgical support)',
+        'Adjunct to unexplained couple infertility investigation',
+      ],
+      dosage:           'One sachet dissolved in 200ml of water daily, preferably with a meal. Minimum treatment course: 90 days (3 spermatogenesis cycles). As directed by andrologist or urologist.',
+      composition: [
+        ['Coenzyme Q10 (Ubiquinone)', '100 mg'],
+        ['DL-alpha-Tocopherol (Vitamin E)', '400 IU'],
+        ['Lycopene (tomato extract)', '10 mg'],
+        ['Selenium (as L-selenomethionine)', '70 mcg'],
+        ['Zinc (as zinc gluconate)', '15 mg'],
+        ['L-Carnitine Fumarate', '500 mg'],
+        ['Vitamin C (Ascorbic Acid)', '100 mg'],
+      ],
+      contraindications: 'Hypersensitivity to any ingredient. Avoid concomitant selenium supplementation (risk of selenotoxicity).',
+      sideEffects:       'Generally well tolerated. Rare: mild GI upset, orange discolouration of urine (riboflavin — harmless). CoQ10 may reduce INR in patients on warfarin.',
+      interactions:      'CoQ10 may reduce anticoagulant effect of warfarin — monitor INR. Avoid concomitant antioxidant megadose supplementation.',
+      warnings:          'PRESCRIPTION ONLY. Prescribed in context of semen analysis and clinical evaluation by a qualified urologist or andrologist. Not a contraceptive.',
+      storage_full:      'Store in a cool, dry place below 25°C. Sachets are moisture-sensitive — do not store in humid environments. Use immediately after dissolving.',
+    },
+
+    'ovacare-fertility': {
+      id:               'ovacare-fertility',
+      name:             'Ovacare Female Fertility',
+      generic:          'Myo-Inositol + D-Chiro-Inositol + Methylfolate + Chromium',
+      category:         'wellness',
+      therapeuticClass: 'Female Fertility Supplements',
+      form:             'Film-Coated Tablet',
+      packSize:         '60 Tablets / Bottle',
+      rx:               true,
+      img:              '',
+      images:           [],
+      strength:         'Myo-Ins 2000mg + D-Chiro 50mg + Folate 400mcg',
+      manufacturer:     'Placeholder Repro Sciences SpA, Italy',
+      origin:           'Italy',
+      storage:          'Below 25°C · Dry conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      "Ovacare Female Fertility provides the clinically evidenced 40:1 ratio of Myo-Inositol to D-Chiro-Inositol, mirroring the physiological ratio in healthy ovarian follicular fluid. Inositol exerts insulin-sensitising effects and has been demonstrated in multiple RCTs to restore spontaneous ovulation, reduce androgen levels, and improve oocyte quality in women with PCOS. Methylfolate rather than folic acid ensures optimal utilisation regardless of MTHFR genetic variants.",
+      indications: [
+        'Polycystic ovary syndrome (PCOS) — cycle regulation and ovulation induction support',
+        'Insulin resistance associated with PCOS',
+        'Improvement of oocyte quality in women undergoing IVF',
+        'Reduction of testosterone and DHEA-S in hyperandrogenic women',
+        'Metabolic management of PCOS (BMI, lipid profile, glucose tolerance)',
+      ],
+      dosage:           'Two tablets twice daily (morning and evening) with meals. Full clinical response expected after 3 months of consistent use. Dosing as directed by specialist gynaecologist.',
+      composition: [
+        ['Myo-Inositol', '2000 mg'],
+        ['D-Chiro-Inositol', '50 mg'],
+        ['5-Methyltetrahydrofolate (Methylfolate)', '400 mcg'],
+        ['Chromium Picolinate', '200 mcg'],
+        ['Vitamin D3 (Cholecalciferol)', '1000 IU'],
+      ],
+      contraindications: 'Hypersensitivity to any component. Bipolar disorder (inositol may trigger mania). Not a substitute for pharmacological PCOS management.',
+      sideEffects:       'Very well tolerated. Occasionally: mild nausea, GI discomfort (improve with food). Extremely rare: headache.',
+      interactions:      'May potentiate hypoglycaemic effects of metformin and insulin — monitor blood glucose. No known significant drug interactions.',
+      warnings:          'PRESCRIPTION ONLY. For use under gynaecological supervision. Does not replace clinical evaluation or treatment of underlying PCOS pathology.',
+      storage_full:      'Store below 25°C in a dry, dark place. Keep bottle tightly closed. Use within 90 days of opening.',
+    },
+
+    'libovit-regenerate': {
+      id:               'libovit-regenerate',
+      name:             'Libovit Regenerate',
+      generic:          'Ashwagandha KSM-66 + Shatavari + Panax Ginseng + Maca',
+      category:         'wellness',
+      therapeuticClass: 'Adaptogenic Supplements',
+      form:             'Hard Capsule (Vegetarian)',
+      packSize:         '30 Capsules / Blister',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Ashwagandha 600mg · Shatavari 300mg · Ginseng 200mg',
+      manufacturer:     'Placeholder Adaptogen Labs, India',
+      origin:           'India (EU-GMP certified)',
+      storage:          'Below 25°C · Dry, dark conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Libovit Regenerate is an adaptogenic botanical formula combining KSM-66 Ashwagandha (the most clinically studied Withania somnifera extract), Shatavari, Panax Ginseng, and Maca Root. Designed for both men and women experiencing stress-related fatigue, reduced libido, hormonal disruption, or declining vitality. Adaptogens modulate the HPA axis to normalise cortisol, improve stress resilience, and support reproductive hormone balance through reduced adrenal dysregulation.',
+      indications: [
+        'Stress-related libido suppression in men and women',
+        'Fatigue and low energy associated with adrenal insufficiency / burnout',
+        'Cortisol-driven hormonal imbalance',
+        'Support of male testosterone and female oestrogen balance',
+        'Improvement of sexual function and satisfaction (dual-gender formulation)',
+      ],
+      dosage:           'One capsule twice daily with meals. Effects typically apparent after 4–6 weeks of consistent use. Safe for long-term use at recommended dose.',
+      composition: [
+        ['Ashwagandha Root Extract KSM-66 (5% withanolides)', '600 mg'],
+        ['Shatavari Root Extract (Asparagus racemosus)', '300 mg'],
+        ['Korean Red Ginseng Extract (Panax ginseng, 5% ginsenosides)', '200 mg'],
+        ['Maca Root Extract 4:1 (Lepidium meyenii)', '200 mg'],
+        ['HPMC vegetarian capsule', 'q.s.'],
+      ],
+      contraindications: 'Autoimmune conditions (SLE, MS, RA — adaptogens may stimulate immune function). Thyroid disorders — consult physician (Ashwagandha affects thyroid hormones). Pregnancy.',
+      sideEffects:       'Generally very well tolerated. Rarely: mild GI disturbance, drowsiness. Ashwagandha may cause mild drowsiness — avoid before driving until individual response is known.',
+      interactions:      'May potentiate sedative medications and thyroid hormone therapy. Ginseng may interact with anticoagulants and antidiabetic agents.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a cool, dry place. Protect from moisture and light. Keep out of reach of children.',
+    },
+
+    'estrolin-gel': {
+      id:               'estrolin-gel',
+      name:             'Estrolin Vaginal Gel',
+      generic:          'Hyaluronic Acid 0.2% (Non-Hormonal) + Vitamin E',
+      category:         'wellness',
+      therapeuticClass: 'Vaginal Moisturizers',
+      form:             'Vaginal Gel (Pre-filled applicators)',
+      packSize:         '8 Applicators × 5ml',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'HA 0.2% · Vit E 0.5%',
+      manufacturer:     'Placeholder Gynaecological Products BV, Netherlands',
+      origin:           'Netherlands',
+      storage:          'Below 25°C · Do not refrigerate',
+      shelfLife:        '30 months (unopened)',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Estrolin Vaginal Gel is a non-hormonal, hormone-free vaginal moisturizer delivering high-molecular-weight hyaluronic acid directly to the vaginal mucosa. Hyaluronic acid is naturally present in the vaginal epithelium and plays a key role in tissue hydration, elasticity, and regeneration. Estrolin provides immediate and sustained relief from vaginal dryness, burning, and dyspareunia without the systemic effects or contraindications of hormonal preparations.',
+      indications: [
+        'Vulvovaginal atrophy (VVA) in peri- and postmenopausal women',
+        'Vaginal dryness and irritation secondary to cancer treatment (chemotherapy, radiotherapy)',
+        'Dyspareunia (painful intercourse) due to insufficient natural lubrication',
+        'Genitourinary syndrome of menopause (GSM)',
+        'Dryness associated with low-dose oral contraceptive use',
+      ],
+      dosage:           'One applicator (5ml) vaginally every 3 days, or as needed. Apply at bedtime. For acute symptoms, may be used daily for the first 2 weeks. For long-term management, use 2–3 times weekly.',
+      composition: [
+        ['Sodium Hyaluronate (high MW 1.8–2.2 MDa)', '0.2% w/w'],
+        ['Tocopheryl Acetate (Vitamin E)', '0.5% w/w'],
+        ['Aloe Vera Gel Extract', '1.0% w/w'],
+        ['Carbomer (gel base)', 'q.s.'],
+        ['Sodium Hydroxide (pH adjustment)', 'q.s.'],
+        ['Purified Water', 'to 100%'],
+      ],
+      contraindications: 'Hypersensitivity to hyaluronic acid or any excipient. Active vaginal infection (bacterial vaginosis, candidiasis) — treat infection first.',
+      sideEffects:       'Extremely rare: mild transient burning or stinging upon first application (resolves quickly). No systemic side effects (non-hormonal, non-absorbed).',
+      interactions:      'No known drug interactions. Compatible with hormonal and non-hormonal therapies. Latex-compatible (check condom compatibility if applicable).',
+      warnings:          '',
+      storage_full:      'Store below 25°C. Do not refrigerate — may affect gel consistency. Do not use if applicator seal is broken. Use each applicator once and discard.',
+    },
+
+    'd3-max': {
+      id:               'd3-max',
+      name:             'D3 Max 5000 IU',
+      generic:          'Cholecalciferol (Vitamin D3)',
+      category:         'vitamins',
+      therapeuticClass: 'Vitamin D Preparations',
+      form:             'Softgel Capsule',
+      packSize:         '60 Softgels / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         '5000 IU (125 mcg)',
+      manufacturer:     'Placeholder Vitamins Ltd, UK',
+      origin:           'United Kingdom',
+      storage:          'Below 25°C · Protect from light',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'D3 Max 5000 IU provides a high-potency dose of Cholecalciferol — the superior form of Vitamin D — suspended in olive oil for maximum bioavailability. Vitamin D deficiency is endemic in Bangladesh, with studies showing over 70% of the urban population deficient due to indoor working patterns, dark clothing, and limited dietary sources. D3 Max is indicated for correction of established deficiency and maintenance of optimal 25(OH)D serum levels (75–150 nmol/L).',
+      indications: [
+        'Correction of Vitamin D deficiency (serum 25(OH)D < 50 nmol/L)',
+        'Maintenance therapy in osteoporosis (adjunct to calcium)',
+        'Immune function support and respiratory health',
+        'Musculoskeletal pain associated with hypovitaminosis D',
+        'Adjunct in management of autoimmune conditions',
+        'Support in Type 2 diabetes management (insulin sensitivity)',
+      ],
+      dosage:           'One softgel daily with a fatty meal for optimal absorption. For correction of deficiency, maintain for minimum 8–12 weeks then recheck serum 25(OH)D. High-dose therapy under physician supervision.',
+      composition: [
+        ['Cholecalciferol (Vitamin D3)', '5000 IU (125 mcg)'],
+        ['Extra Virgin Olive Oil (carrier)', '500 mg'],
+        ['Softgel: Gelatin, Glycerol, Water', 'q.s.'],
+      ],
+      contraindications: 'Hypercalcaemia. Hypervitaminosis D. Nephrolithiasis (active). Granulomatous disorders (sarcoidosis, TB — may cause hypercalcaemia).',
+      sideEffects:       'At recommended doses: none expected. Overdose (>10,000 IU/day for prolonged periods): hypercalcaemia — nausea, weakness, polyuria, constipation.',
+      interactions:      'Thiazide diuretics increase risk of hypercalcaemia. Cholestyramine reduces absorption — separate by 4 hours. Steroids reduce Vitamin D efficacy.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a dark, dry location. Sensitive to light and oxidation — keep lid tightly closed. Refrigerate after opening for extended shelf life.',
+    },
+
+    'omegapure': {
+      id:               'omegapure',
+      name:             'OmegaPure Omega-3',
+      generic:          'Fish Oil Concentrate — EPA + DHA (Triple Strength)',
+      category:         'vitamins',
+      therapeuticClass: 'Omega Fatty Acids',
+      form:             'Softgel Capsule',
+      packSize:         '60 Softgels / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'EPA 750mg + DHA 500mg per capsule',
+      manufacturer:     'Placeholder Marine Nutraceuticals, Norway',
+      origin:           'Norway (IFOS 5-Star)',
+      storage:          'Below 25°C · Refrigerate after opening',
+      shelfLife:        '18 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'OmegaPure delivers triple-strength EPA and DHA from sustainably sourced wild anchovies off the South American coast. Each softgel provides 1,250mg total omega-3, processed through advanced molecular distillation that removes environmental contaminants to levels well below international limits. EPA is the primary anti-inflammatory omega-3 while DHA supports neurological and cardiovascular function. IFOS 5-Star certification guarantees purity, potency, and freshness.',
+      indications: [
+        'Cardiovascular disease risk reduction (triglyceride lowering)',
+        'Adjunct management of hypertriglyceridaemia',
+        'Anti-inflammatory support in arthritis and inflammatory conditions',
+        'Cognitive health and neurological support in adults',
+        'Non-alcoholic fatty liver disease (supportive)',
+        'Mood support (EPA specifically shown in mild depression)',
+      ],
+      dosage:           'One to two softgels daily with food. For cardiovascular or anti-inflammatory indications: 2 softgels daily. Take at the same time each day for consistency.',
+      composition: [
+        ['Fish Oil Concentrate (IFOS 5-Star Certified)', '1700 mg'],
+        ['  — Eicosapentaenoic Acid (EPA)', '750 mg'],
+        ['  — Docosahexaenoic Acid (DHA)', '500 mg'],
+        ['Natural Mixed Tocopherols (antioxidant)', '5 IU'],
+        ['Softgel: Gelatin, Glycerol', 'q.s.'],
+      ],
+      contraindications: 'Fish allergy. Active bleeding disorders. Imminent surgical procedures (discontinue 1 week before).',
+      sideEffects:       'Mild fishy aftertaste (minimise by taking with food or refrigerating). Rarely: loose stools at doses >3g/day. Very rarely: bleeding time prolongation.',
+      interactions:      'May potentiate anticoagulant effects at doses >3g/day. Generally safe with standard antiplatelet therapy — consult physician if on warfarin.',
+      warnings:          '',
+      storage_full:      'Store below 25°C before opening. Refrigerate after opening and consume within 90 days. Do not freeze. Exposure to air and heat accelerates oxidation.',
+    },
+
+    'multivit-exec': {
+      id:               'multivit-exec',
+      name:             'Multivit Executive Formula',
+      generic:          '26-Nutrient Daily Multivitamin & Mineral Complex',
+      category:         'vitamins',
+      therapeuticClass: 'Multivitamins',
+      form:             'Film-Coated Tablet',
+      packSize:         '30 Tablets / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         '26 Active Nutrients',
+      manufacturer:     'Placeholder Nutraceuticals AG, Switzerland',
+      origin:           'Switzerland',
+      storage:          'Below 25°C · Keep bottle tightly closed',
+      shelfLife:        '30 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Multivit Executive Formula is a premium once-daily multivitamin-mineral supplement containing 26 active nutrients in highly bioavailable forms — including methylated B-vitamins, chelated minerals, and natural mixed tocopherols. Designed for professionals and adults with demanding lifestyles who require comprehensive nutritional insurance, especially where dietary variety is limited. The formula uses methylcobalamin (B12), methylfolate, and pyridoxal-5-phosphate (active B6) for superior efficacy.',
+      indications: [
+        'General nutritional supplementation for adults aged 18–65',
+        'Micronutrient insurance during periods of high physical or mental demand',
+        'Prevention of deficiency in individuals with restricted diets',
+        'Support of immune function, energy metabolism, and antioxidant status',
+        'Management of stress-related micronutrient depletion',
+      ],
+      dosage:           'One tablet daily with breakfast. Do not exceed the recommended dose. Not a substitute for a balanced diet.',
+      composition: [
+        ['Vitamin A (as beta-carotene)', '800 mcg RE'],
+        ['Vitamin C (Ascorbic Acid)', '80 mg'],
+        ['Vitamin D3 (Cholecalciferol)', '400 IU'],
+        ['Vitamin E (d-alpha Tocopherol)', '12 mg'],
+        ['Vitamin K2 (MK-7)', '75 mcg'],
+        ['Thiamine (B1)', '1.1 mg'],
+        ['Riboflavin (B2)', '1.4 mg'],
+        ['Niacin (B3)', '16 mg NE'],
+        ['Pyridoxal-5-Phosphate (active B6)', '1.4 mg'],
+        ['Methylfolate (5-MTHF)', '400 mcg'],
+        ['Methylcobalamin (B12)', '2.5 mcg'],
+        ['Biotin', '50 mcg'],
+        ['Pantothenic Acid (B5)', '6 mg'],
+        ['Zinc (bisglycinate)', '10 mg'],
+        ['Iron (bisglycinate)', '14 mg'],
+        ['Selenium (selenomethionine)', '55 mcg'],
+        ['Copper (bisglycinate)', '1 mg'],
+        ['Manganese', '2 mg'],
+        ['Chromium picolinate', '40 mcg'],
+        ['Molybdenum', '50 mcg'],
+        ['Iodine', '150 mcg'],
+      ],
+      contraindications: 'Hypervitaminosis A or D. Iron overload disorders. Hypersensitivity to any ingredient. Not suitable for children under 18.',
+      sideEffects:       'Generally well tolerated. May cause bright yellow urine (riboflavin — harmless). Rarely: mild nausea (take with food). Iron may cause dark stools.',
+      interactions:      'Do not take with other multivitamin/mineral supplements. Separate iron-containing tablets from antacids, tetracyclines, and fluoroquinolones by 2 hours.',
+      warnings:          '',
+      storage_full:      'Store below 25°C with the cap tightly closed. Contains desiccant — do not consume. Best used within 60 days of opening to ensure full potency.',
+    },
+
+    'magcitrate-plus': {
+      id:               'magcitrate-plus',
+      name:             'MagCitrate Plus',
+      generic:          'Magnesium Citrate + Vitamin B6 (Pyridoxine HCl)',
+      category:         'vitamins',
+      therapeuticClass: 'Mineral Supplements',
+      form:             'Film-Coated Tablet',
+      packSize:         '60 Tablets / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         'Mg 150mg + B6 10mg per tablet',
+      manufacturer:     'Placeholder Minerals BV, Netherlands',
+      origin:           'Netherlands',
+      storage:          'Below 25°C · Dry conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      "MagCitrate Plus provides magnesium in the highly bioavailable citrate form — absorbed up to 3.8× more efficiently than magnesium oxide. Magnesium is involved in over 300 enzymatic reactions and is chronically depleted by stress, high sugar diets, alcohol, and certain medications. The addition of Vitamin B6 (Pyridoxine) synergistically enhances intracellular magnesium retention. Indicated for sleep disturbance, muscle cramps, stress, anxiety, and cardiovascular support.",
+      indications: [
+        'Magnesium deficiency and associated symptoms (cramps, twitching, fatigue)',
+        'Sleep quality improvement and insomnia support',
+        'Stress management and anxiety reduction (HPA axis modulation)',
+        'Premenstrual syndrome — fluid retention, mood, and cramp management',
+        'Cardiovascular support (blood pressure, arrhythmia prevention)',
+        'Migraine prophylaxis (adjunct)',
+      ],
+      dosage:           'One to two tablets daily with meals, or as directed. For sleep: take 1 tablet 30 minutes before bedtime. For PMS: increase to 2 tablets daily in the luteal phase.',
+      composition: [
+        ['Magnesium Citrate (elemental Mg 150mg)', '1440 mg'],
+        ['Pyridoxine HCl (Vitamin B6)', '10 mg'],
+        ['Microcrystalline cellulose, talc', 'q.s.'],
+      ],
+      contraindications: 'Severe renal impairment (GFR <30 ml/min) — risk of hypermagnesaemia. Myasthenia gravis. Hypersensitivity to any ingredient.',
+      sideEffects:       'At standard doses: well tolerated. Higher doses: mild laxative effect, loose stools — reduce dose. Magnesium citrate is significantly less likely to cause GI disturbance than oxide.',
+      interactions:      'Magnesium reduces absorption of tetracyclines, fluoroquinolones, bisphosphonates, and iron — separate by 2 hours. May enhance hypotensive effects of antihypertensives.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a dry place. Keep bottle tightly sealed. Tablets are hygroscopic — avoid humidity.',
+    },
+
+    'zinc-guard': {
+      id:               'zinc-guard',
+      name:             'Zinc Guard 25',
+      generic:          'Zinc Picolinate 25mg',
+      category:         'vitamins',
+      therapeuticClass: 'Mineral Supplements',
+      form:             'Film-Coated Tablet',
+      packSize:         '60 Tablets / Bottle',
+      rx:               false,
+      img:              '',
+      images:           [],
+      strength:         '25 mg elemental zinc',
+      manufacturer:     'Placeholder Mineral Sciences Ltd, UK',
+      origin:           'United Kingdom',
+      storage:          'Below 25°C · Dry, dark conditions',
+      shelfLife:        '24 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'Zinc Guard 25 utilises zinc picolinate — a chelate of zinc with picolinic acid — which studies show to have significantly superior absorption over zinc oxide (typically <15% bioavailability) and comparable to zinc bisglycinate. Zinc is essential for immune function, wound healing, testosterone production, sperm quality, taste/smell, and skin integrity. Zinc deficiency is prevalent in Bangladesh due to high phytate diets, making targeted supplementation clinically important.',
+      indications: [
+        'Zinc deficiency and associated impaired immune function',
+        'Wound healing support (surgical, dermatological, diabetic wounds)',
+        'Acne vulgaris — anti-inflammatory and sebum-regulating',
+        'Male reproductive health support (testosterone, sperm quality)',
+        'Adjunct in COVID-19 and upper respiratory tract infection management',
+        'Taste and smell dysfunction (dysgeusia, hyposmia)',
+      ],
+      dosage:           'One tablet daily with a meal. For therapeutic indications (acne, wound healing): 1–2 tablets daily as directed. Do not exceed 40mg elemental zinc/day unless under medical supervision.',
+      composition: [
+        ['Zinc Picolinate (elemental zinc 25mg)', '113 mg'],
+        ['Microcrystalline Cellulose', 'q.s.'],
+        ['Film coating: HPMC, TiO2', 'q.s.'],
+      ],
+      contraindications: 'Hypersensitivity to zinc or picolinic acid. Avoid concurrent high-dose copper supplementation without medical supervision (zinc depletes copper with chronic use).',
+      sideEffects:       'Well tolerated at recommended dose. Taking on empty stomach may cause mild nausea. Long-term use >50mg/day may interfere with copper absorption.',
+      interactions:      'Zinc reduces absorption of tetracyclines, fluoroquinolones, and iron — separate doses by 2 hours. Phytic acid in cereals reduces zinc absorption.',
+      warnings:          '',
+      storage_full:      'Store below 25°C in a dry, dark environment. Keep bottle tightly closed. Protect from moisture.',
+    },
+
+    'coq10-ubiquinol': {
+      id:               'coq10-ubiquinol',
+      name:             'CoQ10 Ubiquinol 100',
+      generic:          'Ubiquinol (Reduced Coenzyme Q10)',
+      category:         'vitamins',
+      therapeuticClass: 'Antioxidant Supplements',
+      form:             'Softgel Capsule',
+      packSize:         '30 Softgels / Bottle',
+      rx:               true,
+      img:              '',
+      images:           [],
+      strength:         '100 mg Ubiquinol',
+      manufacturer:     'Placeholder CoQ Sciences GmbH, Japan/Germany',
+      origin:           'Japan (Kaneka QH™)',
+      storage:          'Below 25°C · Protect from light and heat',
+      shelfLife:        '18 months',
+      dgdaReg:          'DA-Reg-XXXX-XXXX',
+      description:      'CoQ10 Ubiquinol 100 provides Coenzyme Q10 in the active, reduced ubiquinol form (Kaneka QH™). Ubiquinol is the predominant form of CoQ10 in the bloodstream and is 2–8× more bioavailable than conventional ubiquinone. CoQ10 is an essential mitochondrial cofactor for ATP synthesis and a potent lipid-soluble antioxidant. Endogenous production declines significantly with age and is markedly depleted by statin medications — making supplementation clinically relevant in statin-treated cardiovascular patients and older adults.',
+      indications: [
+        'Statin-induced myopathy and CoQ10 depletion (high priority indication)',
+        'Cardiovascular support — heart failure, cardiomyopathy (adjunct)',
+        'Mitochondrial disorders and chronic fatigue syndrome',
+        'Male fertility support — sperm motility and energy production',
+        'Neurodegenerative disease support (Parkinson\'s — investigational)',
+        'Healthy ageing and anti-oxidative stress management in adults over 40',
+      ],
+      dosage:           'One softgel daily with a fat-containing meal for optimal absorption. For statin-induced myopathy: 100–200mg/day. For cardiovascular indications: as directed by cardiologist.',
+      composition: [
+        ['Ubiquinol (Kaneka QH™ — Reduced CoQ10)', '100 mg'],
+        ['Medium Chain Triglycerides (MCT Oil)', '300 mg'],
+        ['Beeswax (solidifier)', 'q.s.'],
+        ['Softgel: Gelatin, Glycerol, Water', 'q.s.'],
+      ],
+      contraindications: 'Hypersensitivity to CoQ10, soy, or any excipient. Contains soy-derived components (soy-allergic patients: consult before use).',
+      sideEffects:       'Very well tolerated. Rarely: mild insomnia if taken late in the day (stimulates mitochondrial energy — take before 3pm). Very rarely: mild GI disturbance.',
+      interactions:      'May reduce anticoagulant effect of warfarin — monitor INR closely in anticoagulated patients. Structurally similar to Vitamin K — take precaution in INR-sensitive patients.',
+      warnings:          'PRESCRIPTION ONLY when used as adjunct to statin therapy or for cardiovascular indications. Self-medication at OTC doses: discuss with prescribing physician to monitor statin therapy response.',
+      storage_full:      'Store below 25°C, away from direct sunlight and heat. Softgels may soften slightly in warm conditions — this does not affect potency. Keep lid tightly closed.',
+    },
+
+  };
+
+  /* ── Page Load ─────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const params  = new URLSearchParams(window.location.search);
+    const id      = params.get('id');
+    const product = CATALOGUE[id];
+
+    if (!product) {
+      document.getElementById('detailInfo').innerHTML = `
+        <div style="padding:4rem 0; text-align:center;">
+          <h2 style="margin-bottom:1rem;">Product Not Found</h2>
+          <p style="margin-bottom:2rem;">The product you are looking for does not exist or has been removed.</p>
+          <a href="products.html" class="btn btn--primary">← Back to Products</a>
+        </div>`;
+      return;
+    }
+
+    // Update page title & meta
+    document.title = `${product.name} | Meridian Pharma`;
+    document.getElementById('bcName').textContent = product.name;
+
+    renderImage(product);
+    renderInfo(product);
+    renderTabs(product);
+    renderRelated(product);
+  });
+
+  /* ── Image panel ───────────────────────────────────────────── */
+  function renderImage(p) {
+    const wrap = document.getElementById('mainImgWrap');
+    if (p.img) {
+      wrap.innerHTML = `<img src="${p.img}" alt="${p.name}" />`;
+      // Thumbnails
+      if (p.images && p.images.length > 1) {
+        const strip = document.getElementById('thumbStrip');
+        strip.style.display = 'flex';
+        strip.innerHTML = [p.img, ...p.images].map((src, i) => `
+          <div class="detail-thumb ${i === 0 ? 'active' : ''}" onclick="switchThumb(this, '${src}', '${p.name}')">
+            <img src="${src}" alt="${p.name} view ${i+1}" />
+          </div>`).join('');
+      }
+    } else {
+      wrap.innerHTML = `
+        <div class="detail-img-placeholder">
+          <div class="detail-img-placeholder-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M12 11v6m-3-3h6"/></svg>
+          </div>
+          <div style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;text-align:center;line-height:1.2;">${p.name}</div>
+          <div class="detail-img-placeholder-note">Product image coming soon.<br>Contact us for visual collateral.</div>
+        </div>`;
+    }
+  }
+
+  function switchThumb(el, src, name) {
+    document.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainImgWrap').querySelector('img').src = src;
+    document.getElementById('mainImgWrap').querySelector('img').alt = name;
+  }
+
+  /* ── Info panel ────────────────────────────────────────────── */
+  function renderInfo(p) {
+    const catLabels = { maternal: 'Maternal Health', wellness: 'Sexual Wellness', vitamins: 'Vitamins & Supplements' };
+
+    const warningBlock = (p.warnings && p.rx)
+      ? `<div class="warning-box">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+           <p><strong>Prescription Required.</strong> ${p.warnings}</p>
+         </div>`
+      : '';
+
+    document.getElementById('detailInfo').innerHTML = `
+      <div class="detail-badges">
+        <span class="detail-badge detail-badge--cat">${catLabels[p.category] || p.category}</span>
+        <span class="detail-badge ${p.rx ? 'detail-badge--rx' : 'detail-badge--otc'}">${p.rx ? 'Prescription Only — Rx' : 'Over the Counter — OTC'}</span>
+        ${p.dgdaReg ? `<span class="detail-badge detail-badge--dgda">DGDA Registered</span>` : ''}
+      </div>
+
+      <h1 class="detail-name">${p.name}</h1>
+      <p class="detail-generic">${p.generic}</p>
+
+      <div class="detail-specs">
+        <div class="detail-spec">
+          <div class="detail-spec__label">Strength</div>
+          <div class="detail-spec__value">${p.strength}</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec__label">Dosage Form</div>
+          <div class="detail-spec__value">${p.form}</div>
+        </div>
+        <div class="detail-spec">
+          <div class="detail-spec__label">Pack Size</div>
+          <div class="detail-spec__value">${p.packSize}</div>
+        </div>
+      </div>
+
+      ${warningBlock}
+
+      <p class="detail-desc">${p.description}</p>
+
+      <div class="detail-cta-box">
+        <h4>Request Product Information</h4>
+        <p>For clinical literature, samples, or physician enquiries — contact our Medical Representative team.</p>
+        <a href="contact.html?product=${encodeURIComponent(p.name)}" class="btn btn--outline-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Enquire About This Product
+        </a>
+      </div>
+    `;
+  }
+
+  /* ── Detail Tabs ───────────────────────────────────────────── */
+  function renderTabs(p) {
+    const compositionRows = (p.composition || [])
+      .map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+
+    const indicationItems = (p.indications || [])
+      .map(i => `<li>${i}</li>`).join('');
+
+    document.getElementById('tabsSection').innerHTML = `
+      <div class="detail-tabs">
+        <button class="detail-tab active" onclick="openTab(this,'tab-indications')">Indications</button>
+        <button class="detail-tab" onclick="openTab(this,'tab-composition')">Composition</button>
+        <button class="detail-tab" onclick="openTab(this,'tab-dosage')">Dosage &amp; Use</button>
+        <button class="detail-tab" onclick="openTab(this,'tab-safety')">Safety &amp; Interactions</button>
+        <button class="detail-tab" onclick="openTab(this,'tab-storage')">Storage</button>
+        <button class="detail-tab" onclick="openTab(this,'tab-product-info')">Product Info</button>
+      </div>
+
+      <div id="tab-indications" class="detail-tab-panel active">
+        <ul class="indication-list">${indicationItems}</ul>
+      </div>
+
+      <div id="tab-composition" class="detail-tab-panel">
+        <table class="info-table">
+          <thead><tr><td><strong>Ingredient</strong></td><td><strong>Amount (per unit)</strong></td></tr></thead>
+          <tbody>${compositionRows}</tbody>
+        </table>
+      </div>
+
+      <div id="tab-dosage" class="detail-tab-panel">
+        <table class="info-table">
+          <tr><td>Recommended Dose</td><td>${p.dosage}</td></tr>
+          <tr><td>Route of Administration</td><td>${p.form}</td></tr>
+          <tr><td>Population</td><td>Adults (unless otherwise specified by prescriber)</td></tr>
+        </table>
+        <div style="margin-top:1.25rem; background:var(--gray-50); border:1px solid var(--gray-100); border-radius:var(--radius-sm); padding:1rem 1.25rem;">
+          <p style="font-size:0.8125rem; color:var(--gray-400); line-height:1.6;"><strong style="color:var(--navy);">Note:</strong> Always follow the dosing instructions provided by the prescribing physician. The information on this page is for reference only and does not replace clinical judgment.</p>
+        </div>
+      </div>
+
+      <div id="tab-safety" class="detail-tab-panel">
+        <table class="info-table">
+          <tr><td>Contraindications</td><td>${p.contraindications || 'None known at recommended doses.'}</td></tr>
+          <tr><td>Side Effects</td><td>${p.sideEffects || 'Generally well tolerated at recommended doses.'}</td></tr>
+          <tr><td>Drug Interactions</td><td>${p.interactions || 'No clinically significant interactions known at recommended doses.'}</td></tr>
+          <tr><td>Pregnancy Category</td><td>${p.category === 'maternal' ? 'Consult prescriber — specifically formulated for use in pregnancy' : 'Consult physician before use during pregnancy or lactation'}</td></tr>
+          <tr><td>Paediatric Use</td><td>Not indicated for use in children under 18 unless specifically prescribed.</td></tr>
+        </table>
+      </div>
+
+      <div id="tab-storage" class="detail-tab-panel">
+        <table class="info-table">
+          <tr><td>Storage Conditions</td><td>${p.storage_full || p.storage}</td></tr>
+          <tr><td>Shelf Life</td><td>${p.shelfLife}</td></tr>
+          <tr><td>After Opening</td><td>Refer to pack. Consume within recommended period.</td></tr>
+        </table>
+      </div>
+
+      <div id="tab-product-info" class="detail-tab-panel">
+        <table class="info-table">
+          <tr><td>Trade Name</td><td>${p.name}</td></tr>
+          <tr><td>Generic / INN Name</td><td>${p.generic}</td></tr>
+          <tr><td>Therapeutic Class</td><td>${p.therapeuticClass}</td></tr>
+          <tr><td>Dosage Form</td><td>${p.form}</td></tr>
+          <tr><td>Pack Size</td><td>${p.packSize}</td></tr>
+          <tr><td>Strength</td><td>${p.strength}</td></tr>
+          <tr><td>Manufacturer</td><td>${p.manufacturer}</td></tr>
+          <tr><td>Country of Origin</td><td>${p.origin}</td></tr>
+          <tr><td>DGDA Registration</td><td>${p.dgdaReg || 'Registration in process'}</td></tr>
+          <tr><td>Importer / Marketer</td><td>Meridian Pharma Ltd., Banani, Dhaka-1213, Bangladesh</td></tr>
+          <tr><td>Prescription Status</td><td>${p.rx ? 'Prescription Only (Rx)' : 'Over the Counter (OTC)'}</td></tr>
+        </table>
+      </div>
+    `;
+  }
+
+  function openTab(btn, tabId) {
+    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.detail-tab-panel').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  /* ── Related products ──────────────────────────────────────── */
+  function renderRelated(p) {
+    // Products in same category, excluding current
+    const related = Object.values(CATALOGUE)
+      .filter(r => r.category === p.category && r.id !== p.id)
+      .slice(0, 4);
+
+    if (!related.length) return;
+
+    const catLabels = { maternal: 'Maternal Health', wellness: 'Sexual Wellness', vitamins: 'Vitamins & Supplements' };
+
+    const cards = related.map(r => {
+      const imgContent = r.img
+        ? `<img src="${r.img}" alt="${r.name}" style="width:100%;height:100%;object-fit:contain;padding:0.75rem;" loading="lazy" />`
+        : `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;padding:1rem;">
+             <div style="width:44px;height:44px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M12 11v6m-3-3h6"/></svg>
+             </div>
+             <div style="font-size:0.75rem;font-weight:700;color:var(--navy);text-align:center;line-height:1.3;">${r.name}</div>
+           </div>`;
+
+      return `
+        <a href="product-detail.html?id=${r.id}" class="pcard">
+          <div class="pcard__img" style="aspect-ratio:4/3;">
+            ${imgContent}
+            <span class="pcard__badge pcard__badge--${r.rx ? 'rx' : r.category}">${r.rx ? 'Rx' : catLabels[r.category] ? catLabels[r.category].split(' ')[0] : ''}</span>
+          </div>
+          <div class="pcard__body">
+            <div class="pcard__name">${r.name}</div>
+            <div class="pcard__generic">${r.generic}</div>
+          </div>
+          <div class="pcard__footer">
+            <span class="pcard__form">${r.form}</span>
+            <span class="pcard__find">
+              Find More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>`;
+    }).join('');
+
+    document.getElementById('relatedSection').innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+        <div>
+          <span class="eyebrow" style="margin-bottom:0.25rem;">Related Products</span>
+          <h3 style="margin-top:0;">More in ${catLabels[p.category]}</h3>
+        </div>
+        <a href="products.html" class="btn btn--ghost">
+          View all
+          <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="related-grid">${cards}</div>`;
+  }
+  </script>
+</body>
+</html>
