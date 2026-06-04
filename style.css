@@ -287,7 +287,7 @@ p.lead { font-size: 1.1875rem; color: var(--gray-400); line-height: 1.75; }
 
 /* ── Navigation ─────────────────────────────────────────────── */
 .nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -318,36 +318,23 @@ p.lead { font-size: 1.1875rem; color: var(--gray-400); line-height: 1.75; }
   gap: 2rem;
 }
 
+/* The anchor container */
 .nav__logo {
   display: flex;
-  flex-direction: column;
-  line-height: 1;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;       /* Respects the height of your main nav bar */
+  padding: 10px 0;    /* Adds subtle breathing room top and bottom */
   flex-shrink: 0;
 }
 
-.nav__logo-name {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--navy);
-  transition: color var(--t-fast);
+/* The actual image containing the pill logo */
+.nav__logo-image {
+  height: 45px;       /* FORCE the big pill graphic down to a standard navbar logo size */
+  width: auto;        /* Perfectly preserves the aspect ratio so it doesn't distort */
+  display: block;
+  object-fit: contain;
 }
-
-.nav__logo-tag {
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gray-400);
-  margin-top: 1px;
-}
-
-.nav--dark .nav__logo-name,
-.nav--dark:not(.nav--scrolled) .nav__logo-name { color: var(--white); }
-.nav--dark .nav__logo-tag,
-.nav--dark:not(.nav--scrolled) .nav__logo-tag { color: rgba(255,255,255,0.5); }
-
-.nav--scrolled.nav--dark .nav__logo-name { color: var(--white); }
 
 .nav__links {
   display: flex;

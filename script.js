@@ -1,5 +1,5 @@
 /* ============================================================
-   MERIDIAN PHARMA — script.js
+   AK PHARMA — script.js
    Minimal JavaScript for UI interactions only
    ============================================================ */
 
