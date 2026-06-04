@@ -153,34 +153,54 @@
 <body>
 
   <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
-  <nav class="nav nav--dark" id="mainNav">
-    <div class="container">
-      <div class="nav__inner">
-        <a href="index.html" class="nav__logo">
-          <span class="nav__logo-name">Meridian Pharma</span>
-          <span class="nav__logo-tag">Bangladesh</span>
-        </a>
-        <ul class="nav__links">
-          <li><a href="index.html"    class="nav__link">Home</a></li>
-          <li><a href="about.html"    class="nav__link">About Us</a></li>
-          <li><a href="products.html" class="nav__link">Products</a></li>
-          <li><a href="careers.html"  class="nav__link">Careers</a></li>
-          <li><a href="contact.html"  class="nav__link active">Contact</a></li>
-        </ul>
-        <a href="contact.html" class="btn btn--outline-white nav__cta">Contact Us</a>
-        <button class="nav__hamburger" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-    <div class="nav__mobile">
-      <a href="index.html"    class="nav__link">Home</a>
-      <a href="about.html"    class="nav__link">About Us</a>
-      <a href="products.html" class="nav__link">Products</a>
-      <a href="careers.html"  class="nav__link">Careers</a>
-      <a href="contact.html"  class="nav__link active">Contact</a>
-    </div>
-  </nav>
+<div id="global-header"></div>
+
+  <script>
+    fetch('header.html', { cache: "no-store" })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Could not find header.html file. Status: ' + response.status);
+            }
+            return response.text();
+        })
+        .then(data => {
+            const container = document.getElementById('global-header');
+            if (container) {
+                container.innerHTML = data;
+            }
+
+            // Handles highlighting the correct link based on URL
+            let currentPage = window.location.pathname.split("/").pop() || "index.html";
+            if (currentPage === "index.php") currentPage = "index.html";
+
+            const navLinks = document.querySelectorAll('#mainNav .nav__link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            initMobileMenu();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.body.insertAdjacentHTML('afterbegin', `
+                <div style="background:#ffdddd; color:#900; border:2px solid #b00; padding:15px; text-align:center; position:fixed; top:0; left:0; width:100%; z-index:9999;">
+                    <strong>Header Load Error:</strong> ${error.message}
+                </div>
+            `);
+        });
+
+    function initMobileMenu() {
+        const hamburger = document.querySelector('.nav__hamburger');
+        const mobileMenu = document.querySelector('.nav__mobile');
+        if(hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('is-open'); 
+            });
+        }
+    }
+  </script>
 
   <!-- ══ PAGE HERO ════════════════════════════════════════════ -->
   <section class="page-hero">
@@ -509,59 +529,53 @@
   </section>
 
   <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__grid">
-        <div>
-          <div class="footer__brand-name">Meridian Pharma</div>
-          <div class="footer__brand-tag">Bangladesh · Est. 2014</div>
-          <p class="footer__brand-desc">Advancing healthcare access in Bangladesh through the importation and distribution of clinically validated pharmaceutical products.</p>
-        </div>
-        <div class="footer__col">
-          <h5>Navigate</h5>
-          <ul class="footer__links">
-            <li><a href="index.html"    class="footer__link">Home</a></li>
-            <li><a href="about.html"    class="footer__link">About Us</a></li>
-            <li><a href="products.html" class="footer__link">Products</a></li>
-            <li><a href="careers.html"  class="footer__link">Careers</a></li>
-            <li><a href="contact.html"  class="footer__link">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h5>Products</h5>
-          <ul class="footer__links">
-            <li><a href="products.html" class="footer__link">Maternal Health</a></li>
-            <li><a href="products.html" class="footer__link">Sexual Wellness</a></li>
-            <li><a href="products.html" class="footer__link">Vitamins &amp; Supplements</a></li>
-            <li><a href="products.html" class="footer__link">Prescription Support</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h5>Contact</h5>
-          <div class="footer__contact-item">
-            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
-            <span>House 24, Road 12, Banani,<br>Dhaka-1213, Bangladesh</span>
-          </div>
-          <div class="footer__contact-item">
-            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
-            <span>+880 1800-000000</span>
-          </div>
-          <div class="footer__contact-item">
-            <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
-            <span>info@meridianpharmabd.com</span>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <p class="footer__copyright">&copy; 2024 Meridian Pharma Ltd. All rights reserved.</p>
-        <div class="footer__legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">DGDA License</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- ══ 1. The Global Component Placeholder Divs ══ -->
+  <div id="global-footer"></div>
+
+  <!-- ══ 2. The Combined Component Fetcher Script ══ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- FETCH & INJECT HEADER ---
+        fetch('header.html', { cache: "no-store" })
+            .then(response => {
+                if (!response.ok) throw new Error('Could not find header.html');
+                return response.text();
+            })
+            .then(data => {
+                const container = document.getElementById('global-header');
+                if (container) container.innerHTML = data;
+                
+                // Keep your custom navbar styling adjustments here if needed
+                initMobileMenu();
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+
+        // --- FETCH & INJECT FOOTER ---
+        fetch('footer.html', { cache: "no-store" })
+            .then(res => res.ok ? res.text() : '')
+            .then(html => { 
+                const container = document.getElementById('global-footer');
+                if (container && html) {
+                    container.innerHTML = html; 
+                }
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+    });
+
+    // Mobile menu helper function
+    function initMobileMenu() {
+        const hamburger = document.querySelector('.nav__hamburger');
+        const mobileMenu = document.querySelector('.nav__mobile');
+        if(hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('is-open'); 
+            });
+        }
+    }
+  </script>
 
   <script src="script.js"></script>
   <script>

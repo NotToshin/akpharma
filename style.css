@@ -1962,3 +1962,8 @@ p.lead { font-size: 1.1875rem; color: var(--gray-400); line-height: 1.75; }
   .metric-item { border-right: none; border-bottom: 1px solid var(--gray-100); }
   .application-form { padding: 1.75rem; }
 }
+
+.nav.nav--has-bg {
+    background-color: #0b1528 !important; /* Forces your exact dark blue theme background color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}

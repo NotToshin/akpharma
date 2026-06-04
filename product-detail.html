@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Product details — Meridian Pharma" />
+  <title>Product Detail | Meridian Pharma</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="products.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Product Detail Page Styles ──────────────────────── */
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      padding: 1.5rem 0 0;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color var(--t-fast);
+    }
+
+    .breadcrumb a:hover { color: var(--accent); }
+
+    .breadcrumb__sep {
+      color: var(--gray-200);
+    }
+
+    .breadcrumb__current {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Detail layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 3.5rem;
+      align-items: start;
+      padding: 2.5rem 0 var(--s-2xl);
+    }
+
+    .detail-img-main {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .detail-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2.5rem;
+    }
+
+    /* Placeholder when no image */
+    .detail-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .detail-img-placeholder-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-img-placeholder-icon svg {
+      width: 48px; height: 48px;
+      stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.25;
+    }
+
+    .detail-img-placeholder-note {
+      font-size: 0.8125rem;
+      color: var(--gray-300);
+      max-width: 200px;
+      line-height: 1.5;
+    }
+
+    /* Thumbnails row */
+    .detail-thumbs {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .detail-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-200);
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color var(--t-fast);
+    }
+
+    .detail-thumb.active { border-color: var(--navy); }
+    .detail-thumb:hover { border-color: var(--navy-light); }
+
+    .detail-thumb img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 0.5rem;
+    }
+
+    /* Info panel badges */
+    .detail-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .detail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .detail-badge--cat  { background: var(--navy-faint); color: var(--navy); border: 1px solid var(--gray-200); }
+    .detail-badge--rx   { background: rgba(220,60,60,0.08); color: #c0392b; border: 1px solid rgba(220,60,60,0.2); }
+    .detail-badge--otc  { background: rgba(26,156,84,0.1); color: #1a7a45; border: 1px solid rgba(26,156,84,0.2); }
+    .detail-badge--dgda { background: rgba(30,95,212,0.08); color: var(--accent); border: 1px solid rgba(30,95,212,0.18); }
+
+    .detail-name {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-generic {
+      font-size: 1rem;
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+      line-height: 1.4;
+    }
+
+    /* Key specs strip */
+    .detail-specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .detail-spec {
+      padding: 1rem 1.125rem;
+      border-right: 1px solid var(--gray-100);
+      transition: background var(--t-fast);
+    }
+
+    .detail-spec:last-child { border-right: none; }
+    .detail-spec:hover { background: var(--gray-50); }
+
+    .detail-spec__label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-300);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-spec__value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    /* Description */
+    .detail-desc {
+      font-size: 0.9625rem;
+      color: var(--gray-500);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    /* Info tabs mechanics */
+    .detail-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--gray-100);
+      margin-bottom: 1.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .detail-tabs::-webkit-scrollbar { display: none; }
+
+    .detail-tab {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font);
+      white-space: nowrap;
+      transition: color var(--t-fast), border-color var(--t-fast);
+    }
+
+    .detail-tab.active { color: var(--navy); border-bottom-color: var(--accent); }
+    .detail-tab:hover:not(.active) { color: var(--navy); }
+
+    .detail-tab-panel { display: none; }
+    .detail-tab-panel.active { display: block; }
+
+    /* Info table */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table tr:last-child td { border-bottom: none; }
+
+    .info-table td {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 0.875rem;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .info-table td:first-child {
+      font-weight: 700;
+      color: var(--navy);
+      width: 40%;
+      padding-right: 1.25rem;
+    }
+
+    .info-table td:last-child {
+      color: var(--gray-500);
+    }
+
+    /* Indication list */
+    .indication-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .indication-list li {
+      display: flex;
+      gap: 0.625rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .indication-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+
+    /* Warning box */
+    .warning-box {
+      background: rgba(220,60,60,0.05);
+      border: 1px solid rgba(220,60,60,0.15);
+      border-radius: var(--radius-md);
+      padding: 1.125rem 1.25rem;
+      display: flex;
+      gap: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .warning-box svg {
+      width: 20px; height: 20px;
+      stroke: #c0392b; fill: none; stroke-width: 1.75;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .warning-box p {
+      font-size: 0.8375rem;
+      color: #a93226;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* CTA box */
+    .detail-cta-box {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .detail-cta-box h4 { color: var(--white); margin: 0 0 0.5rem 0; font-size: 1rem; }
+    .detail-cta-box p  { color: rgba(255,255,255,0.55); font-size: 0.875rem; margin: 0 0 1.25rem 0; }
+    .detail-cta-box .btn { display: inline-flex; width: 100%; justify-content: center; }
+
+    /* Related products grid */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    /* Sticky sidebar layout configuration rules */
+    .detail-info-sticky {
+      position: sticky;
+      top: 96px;
+    }
+
+    /* Responsive scaling optimizations breakpoints */
+    @media (max-width: 960px) {
+      .detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .detail-info-sticky { position: static; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-specs { grid-template-columns: 1fr 1fr; }
+      .detail-spec:nth-child(2) { border-right: none; }
+      .detail-spec:nth-child(3) { border-top: 1px solid var(--gray-100); grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 480px) {
+      .detail-specs { grid-template-columns: 1fr; }
+      .detail-spec { border-right: none !important; border-top: 1px solid var(--gray-100); }
+      .detail-spec:first-child { border-top: none; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="global-header"></div>
+
+  <div class="container" style="padding-top:72px;">
+
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb__sep">›</span>
+      <a href="products.html">Products</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current" id="bcName">Loading…</span>
+    </nav>
+
+    <div class="detail-grid">
+
+      <div class="detail-img-panel">
+        <div class="detail-img-main" id="mainImgWrap">
+          </div>
+        <div class="detail-thumbs" id="thumbStrip" style="display:none;"></div>
+      </div>
+
+      <div class="detail-info-sticky">
+        <div class="detail-info" id="detailInfo">
+          </div>
+      </div>
+
+    </div>
+
+    <div style="max-width:900px; margin: 0 auto var(--s-2xl);" id="tabsSection">
+      </div>
+
+    <div id="relatedSection" style="margin-bottom:var(--s-2xl);">
+      </div>
+  </div>
+
+  <div id="global-footer"></div>
+
+  <script>
+    let ALL_PRODUCTS_DATABASE = [];
+
+    // Global components loader routing pipeline configurations
+    function loadGlobalComponents() {
+        fetch('header.html', { cache: "no-store" })
+            .then(response => {
+                if (!response.ok) throw new Error('Could not read header resource stream files.');
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('global-header').innerHTML = html;
+
+                // Adjust inline header context variables rules properties 
+                const navbar = document.getElementById('mainNav');
+                if (navbar) {
+                    navbar.style.backgroundColor = "#0b1528"; 
+                    navbar.style.position = "relative";       
+                    navbar.style.width = "100%";               
+                    navbar.style.zIndex = "9999";              
+                }
+
+                // Append the active highlighting class logic specifically onto matching anchors
+                document.querySelectorAll('#mainNav .nav__link').forEach(link => {
+                    if (link.getAttribute('href') === 'products.html') {
+                        link.classList.add('active');
+                    }
+                });
+                
+                initMobileMenuToggle();
+            })
+            .catch(err => console.error('Error delivering header structural fragments:', err));
+
+        fetch('footer.html')
+            .then(res => res.ok ? res.text() : '')
+            .then(html => {
+                if (html) document.getElementById('global-footer').innerHTML = html;
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadGlobalComponents();
+
+        // Parse runtime window search string properties keys tokens parameters (?id=value)
+        const params = new URLSearchParams(window.location.search);
+        const currentId = params.get('id');
+
+        if (!currentId) {
+            renderErrorWorkspace("Missing valid tracking item query key string parameters.");
+            return;
+        }
+
+        // Fetch central JSON structure catalog repository file pipeline
+        fetch('products.json', { cache: "no-store" })
+            .then(res => {
+                if (!res.ok) throw new Error("Central file configuration data storage index lost.");
+                return res.json();
+            })
+            .then(dataList => {
+                ALL_PRODUCTS_DATABASE = dataList;
+                
+                // Track current record matches logic parameters filters arrays matching
+                const targetProduct = ALL_PRODUCTS_DATABASE.find(p => p.id === currentId);
+
+                if (!targetProduct) {
+                    renderErrorWorkspace("Requested tracking entry reference token could not be mapped inside indices.");
+                    return;
+                }
+
+                // Initialize component layout execution loops engines maps variables
+                document.title = `${targetProduct.name} | Meridian Pharma`;
+                document.getElementById('bcName').textContent = targetProduct.name;
+
+                renderLayoutImagePanel(targetProduct);
+                renderLayoutInfoPanel(targetProduct);
+                renderLayoutTabsModule(targetProduct);
+                renderLayoutRelatedModule(targetProduct);
+            })
+            .catch(error => {
+                console.error(error);
+                renderErrorWorkspace("Ecosystem loader exception crash. View logging terminal indicators.");
+            });
+    });
+
+    /* ── Image Display Operations Render Engine ──────────────── */
+    function renderLayoutImagePanel(p) {
+        const wrap = document.getElementById('mainImgWrap');
+        if (p.img) {
+            wrap.innerHTML = `<img src="${p.img}" alt="${p.name}" />`;
+            if (p.images && p.images.length > 1) {
+                const strip = document.getElementById('thumbStrip');
+                strip.style.display = 'flex';
+                strip.innerHTML = [p.img, ...p.images].map((src, i) => `
+                    <div class="detail-thumb ${i === 0 ? 'active' : ''}" onclick="switchActiveThumbElementView(this, '${src}', '${p.name}')">
+                        <img src="${src}" alt="${p.name} visualization aspect layer ${i+1}" />
+                    </div>`).join('');
+            }
+        } else {
+            wrap.innerHTML = `
+                <div class="detail-img-placeholder">
+                    <div class="detail-img-placeholder-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M12 11v6m-3-3h6"/></svg>
+                    </div>
+                    <div style="font-size:1.5rem;font-weight:800;color:var(--navy);letter-spacing:-0.02em;text-align:center;line-height:1.2;">${p.name}</div>
+                    <div class="detail-img-placeholder-note">Product image coming soon.<br>Contact us for visual collateral.</div>
+                </div>`;
+        }
+    }
+
+    window.switchActiveThumbElementView = function(el, src, name) {
+        document.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        const mainImage = document.getElementById('mainImgWrap').querySelector('img');
+        if(mainImage) {
+            mainImage.src = src;
+            mainImage.alt = name;
+        }
+    };
+
+    /* ── Info Ledger Metadata Operations Render Engine ───────── */
+    function renderLayoutInfoPanel(p) {
+        const catLabels = { maternal: 'Maternal Health', wellness: 'Sexual Wellness', vitamins: 'Vitamins & Supplements' };
+
+        const warningBlock = (p.warnings && p.rx)
+            ? `<div class="warning-box">
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                   <p><strong>Prescription Required.</strong> ${p.warnings}</p>
+                 </div>`
+            : '';
+
+        document.getElementById('detailInfo').innerHTML = `
+            <div class="detail-badges">
+                <span class="detail-badge detail-badge--cat">${catLabels[p.category] || p.category}</span>
+                <span class="detail-badge ${p.rx ? 'detail-badge--rx' : 'detail-badge--otc'}">${p.rx ? 'Prescription Only — Rx' : 'Over the Counter — OTC'}</span>
+                ${p.dgdaReg ? `<span class="detail-badge detail-badge--dgda">DGDA Registered</span>` : ''}
+            </div>
+
+            <h1 class="detail-name">${p.name}</h1>
+            <p class="detail-generic">${p.generic}</p>
+
+            <div class="detail-specs">
+                <div class="detail-spec">
+                    <div class="detail-spec__label">Strength</div>
+                    <div class="detail-spec__value">${p.strength || 'N/A'}</div>
+                </div>
+                <div class="detail-spec">
+                    <div class="detail-spec__label">Dosage Form</div>
+                    <div class="detail-spec__value">${p.form || 'N/A'}</div>
+                </div>
+                <div class="detail-spec">
+                    <div class="detail-spec__label">Pack Size</div>
+                    <div class="detail-spec__value">${p.packSize || 'Refer to documentation'}</div>
+                </div>
+            </div>
+
+            ${warningBlock}
+
+            <p class="detail-desc">${p.description || 'Comprehensive clinical specifications mapping files processing indexes.'}</p>
+
+            <div class="detail-cta-box">
+                <h4>Request Product Information</h4>
+                <p>For clinical literature, samples, or physician enquiries — contact our Medical Representative team.</p>
+                <a href="contact.html?product=${encodeURIComponent(p.name)}" class="btn btn--outline-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Enquire About This Product
+                </a>
+            </div>
+        `;
+    }
+
+    /* ── Tabbed Specifications Panel Render Engine ────────────── */
+    function renderLayoutTabsModule(p) {
+        const compositionRows = (p.composition || [])
+            .map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+
+        const indicationItems = (p.indications || [])
+            .map(i => `<li>${i}</li>`).join('');
+
+        document.getElementById('tabsSection').innerHTML = `
+            <div class="detail-tabs">
+                <button class="detail-tab active" onclick="switchActiveDisplayTabPanel(this,'tab-indications')">Indications</button>
+                <button class="detail-tab" onclick="switchActiveDisplayTabPanel(this,'tab-composition')">Composition</button>
+                <button class="detail-tab" onclick="switchActiveDisplayTabPanel(this,'tab-dosage')">Dosage &amp; Use</button>
+                <button class="detail-tab" onclick="switchActiveDisplayTabPanel(this,'tab-safety')">Safety &amp; Interactions</button>
+                <button class="detail-tab" onclick="switchActiveDisplayTabPanel(this,'tab-storage')">Storage</button>
+                <button class="detail-tab" onclick="switchActiveDisplayTabPanel(this,'tab-product-info')">Product Info</button>
+            </div>
+
+            <div id="tab-indications" class="detail-tab-panel active">
+                <ul class="indication-list">${indicationItems || '<li>Refer to specific packaging inserts.</li>'}</ul>
+            </div>
+
+            <div id="tab-composition" class="detail-tab-panel">
+                <table class="info-table">
+                    <thead><tr><td><strong>Ingredient</strong></td><td><strong>Amount (per unit)</strong></td></tr></thead>
+                    <tbody>${compositionRows || '<tr><td colspan="2">See product insert sheet documentation values ledger.</td></tr>'}</tbody>
+                </table>
+            </div>
+
+            <div id="tab-dosage" class="detail-tab-panel">
+                <table class="info-table">
+                    <tr><td>Recommended Dose</td><td>${p.dosage || 'As directed by a licensed healthcare practitioner.'}</td></tr>
+                    <tr><td>Route of Administration</td><td>${p.form || 'Oral formulation usage tracks'}</td></tr>
+                    <tr><td>Population</td><td>Adults (unless otherwise specified by prescriber)</td></tr>
+                </table>
+                <div style="margin-top:1.25rem; background:var(--gray-50); border:1px solid var(--gray-100); border-radius:var(--radius-sm); padding:1rem 1.25rem;">
+                    <p style="font-size:0.8125rem; color:var(--gray-400); line-height:1.6;"><strong style="color:var(--navy);">Note:</strong> Always follow the dosing instructions provided by the prescribing physician. The information on this page is for reference only and does not replace clinical judgment.</p>
+                </div>
+            </div>
+
+            <div id="tab-safety" class="detail-tab-panel">
+                <table class="info-table">
+                    <tr><td>Contraindications</td><td>${p.contraindications || 'None known at recommended doses.'}</td></tr>
+                    <tr><td>Side Effects</td><td>${p.sideEffects || 'Generally well tolerated at recommended doses.'}</td></tr>
+                    <tr><td>Drug Interactions</td><td>${p.interactions || 'No clinically significant interactions known at recommended doses.'}</td></tr>
+                    <tr><td>Pregnancy Category</td><td>${p.category === 'maternal' ? 'Consult prescriber — specifically formulated for use in pregnancy' : 'Consult physician before use during pregnancy or lactation'}</td></tr>
+                    <tr><td>Paediatric Use</td><td>Not indicated for use in children under 18 unless specifically prescribed.</td></tr>
+                </table>
+            </div>
+
+            <div id="tab-storage" class="detail-tab-panel">
+                <table class="info-table">
+                    <tr><td>Storage Conditions</td><td>${p.storage_full || p.storage || 'Store in a cool dry place away from heat layers.'}</td></tr>
+                    <tr><td>Shelf Life</td><td>${p.shelfLife || '24 months from manufacture date.'}</td></tr>
+                    <tr><td>After Opening</td><td>Refer to pack. Consume within recommended period.</td></tr>
+                </table>
+            </div>
+
+            <div id="tab-product-info" class="detail-tab-panel">
+                <table class="info-table">
+                    <tr><td>Trade Name</td><td>${p.name}</td></tr>
+                    <tr><td>Generic / INN Name</td><td>${p.generic}</td></tr>
+                    <tr><td>Therapeutic Class</td><td>${p.therapeuticClass || 'N/A'}</td></tr>
+                    <tr><td>Dosage Form</td><td>${p.form}</td></tr>
+                    <tr><td>Pack Size</td><td>${p.packSize || 'Refer to item parameters'}</td></tr>
+                    <tr><td>Strength</td><td>${p.strength}</td></tr>
+                    <tr><td>Manufacturer</td><td>${p.manufacturer || 'Global partner laboratories'}</td></tr>
+                    <tr><td>Country of Origin</td><td>${p.origin || 'Imported item indices'}</td></tr>
+                    <tr><td>DGDA Registration</td><td>${p.dgdaReg || 'Registration active verification pipelines.'}</td></tr>
+                    <tr><td>Importer / Marketer</td><td>Meridian Pharma Ltd., Banani, Dhaka-1213, Bangladesh</td></tr>
+                    <tr><td>Prescription Status</td><td>${p.rx ? 'Prescription Only (Rx)' : 'Over the Counter (OTC)'}</td></tr>
+                </table>
+            </div>
+        `;
+    }
+
+    window.switchActiveDisplayTabPanel = function(btn, tabId) {
+        document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.detail-tab-panel').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    };
+
+    /* ── Cross Reference Catalog Section Matching Render Engine ─ */
+    function renderLayoutRelatedModule(p) {
+        const related = ALL_PRODUCTS_DATABASE
+            .filter(r => r.category === p.category && r.id !== p.id)
+            .slice(0, 4);
+
+        if (!related.length) return;
+
+        const catLabels = { maternal: 'Maternal Health', wellness: 'Sexual Wellness', vitamins: 'Vitamins & Supplements' };
+
+        const cards = related.map(r => {
+            const imgContent = r.img
+                ? `<img src="${r.img}" alt="${r.name}" style="width:100%;height:100%;object-fit:contain;padding:0.75rem;" loading="lazy" />`
+                : `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;padding:1rem;">
+                       <div style="width:44px;height:44px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M12 11v6m-3-3h6"/></svg>
+                       </div>
+                       <div style="font-size:0.75rem;font-weight:700;color:var(--navy);text-align:center;line-height:1.3;">${r.name}</div>
+                   </div>`;
+
+            return `
+                <a href="product-detail.html?id=${r.id}" class="pcard">
+                    <div class="pcard__img" style="aspect-ratio:4/3; position:relative; overflow:hidden;">
+                        ${imgContent}
+                        <span class="pcard__badge pcard__badge--${r.rx ? 'rx' : r.category}">${r.rx ? 'Rx' : catLabels[r.category] ? catLabels[r.category].split(' ')[0] : ''}</span>
+                    </div>
+                    <div class="pcard__body">
+                        <div class="pcard__name">${r.name}</div>
+                        <div class="pcard__generic">${r.generic}</div>
+                    </div>
+                    <div class="pcard__footer">
+                        <span class="pcard__form">${r.form || ''}</span>
+                        <span class="pcard__find">
+                            Find More
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </a>`;
+        }).join('');
+
+        document.getElementById('relatedSection').innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+                <div>
+                    <span class="eyebrow" style="margin-bottom:0.25rem;">Related Products</span>
+                    <h3 style="margin-top:0;">More in ${catLabels[p.category] || p.category}</h3>
+                </div>
+                <a href="products.html" class="btn btn--ghost" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; color:var(--accent); font-weight:700; font-size:0.875rem;">
+                    View all
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="related-grid">${cards}</div>`;
+    }
+
+    /* ── Error Page Boundary System Handler Fallbacks ────────── */
+    function renderErrorWorkspace(message) {
+        document.getElementById('bcName').textContent = "Error View";
+        document.querySelector('.detail-grid').innerHTML = `
+            <div style="grid-column: 1 / -1; padding: 4rem 2rem; border: 2px dashed var(--gray-200); border-radius: 12px; text-align: center;">
+                <h2 style="color: var(--navy); margin-bottom: 0.5rem;">Product Context Unreachable</h2>
+                <p style="color: var(--gray-400); font-size: 0.9375rem; margin-bottom: 1.5rem;">${message}</p>
+                <a href="products.html" style="display: inline-block; background: var(--navy); color: white; text-decoration: none; font-weight: 600; font-size: 0.875rem; padding: 0.65rem 1.5rem; border-radius: 6px;">Return to Main Inventory</a>
+            </div>`;
+        document.getElementById('tabsSection').style.display = "none";
+        document.getElementById('relatedSection').style.display = "none";
+    }
+
+    function initMobileMenuToggle() {
+        const hamburger = document.querySelector('.nav__hamburger');
+        const mobileMenu = document.querySelector('.nav__mobile');
+        if(hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('is-open'); 
+            });
+        }
+    }
+  </script>
+</body>
+</html>
