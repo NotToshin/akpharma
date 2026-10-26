@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pharmaceutical &amp; Wellness Products Directory | AK Pharma Bangladesh</title>
+  <meta name="description" content="Explore AK Pharma's certified product catalog. Prenatal nutrition, maternal care, sexual wellness, and vital micronutrient formulations. Order directly or find at model pharmacies across Bangladesh." />
+  <meta name="keywords" content="AK Pharma products, Ova-Wom Bangladesh, Fol-Aid, Lybon-D, Drostility 25, pregnancy supplements Dhaka, fertility medicine BD, natural calcium vitamin D3, pharmaceutical distributor, ওভা ওম বাংলাদেশ" />
+  <link rel="canonical" href="https://akpharmabd.com/products.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://akpharmabd.com/products.html" />
+  <meta property="og:title" content="AK Pharma Product Catalog — Smart Solutions for Healthier Living" />
+  <meta property="og:description" content="Browse clinically validated maternal, reproductive, and nutritional supplements. Available at licensed model pharmacies nationwide." />
+  <meta property="og:image" content="https://akpharmabd.com/images/ak-pharma-logo.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AK Pharma Product Catalog | Bangladesh" />
+  <meta name="twitter:description" content="Certified pharmaceutical and wellness formulations trusted by 3,000+ physicians." />
+  <meta name="twitter:image" content="https://akpharmabd.com/images/ak-pharma-logo.png" />
+
+  <!-- Favicon & Brand Identity -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#274e6e" />
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="products.css" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org CollectionPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "AK Pharma Products Catalog",
+    "url": "https://akpharmabd.com/products.html",
+    "description": "Certified pharmaceutical products, prenatal supplements, and reproductive wellness formulations distributed across Bangladesh.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AK Pharma",
+      "logo": "https://akpharmabd.com/images/ak-pharma-logo.png",
+      "telephone": "+8801798112763"
+    }
+  }
+  </script>
+</head>
+<body>
+
+    <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
+  <div id="global-header">
+    <nav class="nav nav--dark" id="mainNav">
+      <div class="container">
+        <div class="nav__inner">
+          <a href="index.html" class="nav__logo" aria-label="AK Pharma Home">
+            <img src="images/logo-white-horizontal.png" alt="AK Pharma Logo" class="nav__logo-image" />
+          </a>
+          <ul class="nav__links">
+            <li><a href="index.html"    class="nav__link">Home</a></li>
+            <li><a href="about.html"    class="nav__link">About Us</a></li>
+            <li><a href="products.html" class="nav__link active">Products</a></li>
+            <li><a href="careers.html"  class="nav__link">Careers</a></li>
+            <li><a href="contact.html"  class="nav__link">Contact</a></li>
+          </ul>
+          <a href="contact.html" class="btn btn--outline-white nav__cta">Contact Us</a>
+          <button class="nav__hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <div class="nav__mobile">
+        <a href="index.html"    class="nav__link">Home</a>
+        <a href="about.html"    class="nav__link">About Us</a>
+        <a href="products.html" class="nav__link active">Products</a>
+        <a href="careers.html"  class="nav__link">Careers</a>
+        <a href="contact.html"  class="nav__link">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <section class="page-hero" style="padding: 7rem 0 3.5rem;">
+    <div class="page-hero__pattern"></div>
+    <div class="page-hero__glow"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="eyebrow eyebrow--white">Product Portfolio</span>
+      <h1 style="font-size:clamp(2rem,4vw,3.25rem);">Clinically Validated.<br>Globally Sourced.</h1>
+      <p style="margin-top:0.875rem;">Browse our complete portfolio — search by trade name, generic name, or therapeutic category.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="prod-layout">
+
+      <aside class="prod-sidebar" id="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Find a Product</div>
+
+          <div class="sidebar-search">
+            <input type="text" id="sidebarSearch" placeholder="Enter Product Name" autocomplete="off" />
+            <span class="sidebar-search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </span>
+          </div>
+
+          <nav class="sidebar-nav" id="sidebarNav">
+            <div class="sidebar-nav-item active" data-cat="all">
+              All Products
+              <span class="sidebar-nav-count" id="cnt-all">0</span>
+            </div>
+            <div class="sidebar-nav-item" data-cat="maternal">
+              Maternal Health
+              <span class="sidebar-nav-count" id="cnt-maternal">0</span>
+            </div>
+            <div class="sidebar-nav-item" data-cat="wellness">
+              Sexual Wellness
+              <span class="sidebar-nav-count" id="cnt-wellness">0</span>
+            </div>
+            <div class="sidebar-nav-item" data-cat="vitamins">
+              Vitamins &amp; Supplements
+              <span class="sidebar-nav-count" id="cnt-vitamins">0</span>
+            </div>
+            <div class="sidebar-nav-item item-rx-divider" data-cat="rx">
+              Prescription Only (Rx)
+              <span class="sidebar-nav-count" id="cnt-rx">0</span>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="prod-main">
+
+        <div class="prod-topbar">
+          <div class="prod-search-wrap">
+            <span class="prod-search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </span>
+            <input class="prod-search" type="text" id="mainSearch" placeholder="Search by trade name, generic name…" autocomplete="off" />
+          </div>
+          <div class="prod-result-count" id="resultCount">
+            Loading products...
+          </div>
+        </div>
+
+        <div class="prod-tabs">
+          <button class="prod-tab active" data-tab="trade">Trade Name</button>
+          <button class="prod-tab" data-tab="generic">Generic Name</button>
+          <button class="prod-tab" data-tab="class">Therapeutic Class</button>
+        </div>
+
+        <div class="az-bar" id="azBar">
+          <button class="az-btn active" data-letter="all">All</button>
+        </div>
+
+        <div class="prod-section-label" id="sectionLabel">
+          Pharmaceuticals Products
+        </div>
+
+        <div class="prod-grid" id="prodGrid"></div>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="disclaimer-bar">
+    <div class="container">
+      <p class="disclaimer-text">
+        <strong>Medical Disclaimer:</strong> All products are subject to current DGDA registration status. Products labelled <strong>Rx</strong> are prescription-only medicines. This portal is intended for healthcare professionals and industry stakeholders only.
+      </p>
+    </div>
+  </div>
+
+    <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+  <div id="global-footer">
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <!-- Brand Profile -->
+          <div>
+            <a href="index.html" class="footer__logo-link" aria-label="AK Pharma Home">
+              <img src="images/logo-white-horizontal.png" alt="AK Pharma Logo" class="nav__logo-image" style="height:48px;" />
+            </a>
+            <div class="footer__brand-tag">Smart Solutions for Healthier Living · Est. 2014</div>
+            <p class="footer__brand-desc">Advancing healthcare access in Bangladesh through the importation and distribution of clinically validated pharmaceutical products.</p>
+          </div>
+
+          <!-- Main Navigation Links -->
+          <div class="footer__col">
+            <h5>Navigate</h5>
+            <ul class="footer__links">
+              <li><a href="index.html"    class="footer__link">Home</a></li>
+              <li><a href="about.html"    class="footer__link">About Us</a></li>
+              <li><a href="products.html" class="footer__link">Products</a></li>
+              <li><a href="careers.html"  class="footer__link">Careers</a></li>
+              <li><a href="contact.html"  class="footer__link">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Functional Category Jump Filters -->
+          <div class="footer__col">
+            <h5>Products</h5>
+            <ul class="footer__links">
+              <li><a href="products.html" onclick="return typeof filterCatFromFooter === 'function' ? filterCatFromFooter('maternal') : true;" class="footer__link">Maternal Health</a></li>
+              <li><a href="products.html" onclick="return typeof filterCatFromFooter === 'function' ? filterCatFromFooter('wellness') : true;" class="footer__link">Sexual Wellness</a></li>
+              <li><a href="products.html" onclick="return typeof filterCatFromFooter === 'function' ? filterCatFromFooter('vitamins') : true;" class="footer__link">Vitamins &amp; Supplements</a></li>
+              <li><a href="products.html" onclick="return typeof filterCatFromFooter === 'function' ? filterCatFromFooter('rx') : true;" class="footer__link">Prescription Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Physical Contact Ledger -->
+          <div class="footer__col">
+            <h5>Contact</h5>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></span>
+              <span>10/26, Rupnagar R/A, Mirpur,<br>Dhaka 1216, Bangladesh</span>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
+              <span>+880 1798-112763</span>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
+              <span>akpharmabd@gmail.com</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Administrative Legal Row -->
+        <div class="footer__bottom">
+          <p class="footer__copyright">&copy; 2026 AK Pharma Ltd. All rights reserved.</p>
+          <div class="footer__legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">DGDA License</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    let PRODUCTS = []; 
+    let activeTab    = 'trade'; 
+    let activeCat    = 'all';
+    let activeLetter = 'all';
+    let searchQuery  = '';
+
+    function initializeCatalog(data) {
+        PRODUCTS = data;
+        calculateSidebarCounters();
+        buildAZBar();
+        bindEvents();
+        render();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Try local JS data first (works on file:// without web server)
+        if (typeof AK_PRODUCTS !== 'undefined' && Array.isArray(AK_PRODUCTS)) {
+            initializeCatalog(AK_PRODUCTS);
+        } else {
+            // Fallback to fetch products.json for web server
+            fetch('products.json', { cache: "no-store" })
+                .then(response => response.json())
+                .then(data => initializeCatalog(data))
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('prodGrid').innerHTML = `
+                        <div class="prod-empty">
+                            <p style="color:var(--accent, red);">Unable to load product list.</p>
+                        </div>`;
+                });
+        }
+    });
+
+    function calculateSidebarCounters() {
+        document.getElementById('cnt-all').textContent = PRODUCTS.length;
+        document.getElementById('cnt-maternal').textContent = PRODUCTS.filter(p => p.category === 'maternal').length;
+        document.getElementById('cnt-wellness').textContent = PRODUCTS.filter(p => p.category === 'wellness').length;
+        document.getElementById('cnt-vitamins').textContent = PRODUCTS.filter(p => p.category === 'vitamins').length;
+        document.getElementById('cnt-rx').textContent = PRODUCTS.filter(p => p.rx).length;
+    }
+
+    function buildAZBar() {
+        const bar = document.getElementById('azBar');
+        bar.innerHTML = '<button class="az-btn active" data-letter="all">All</button>';
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const used = new Set(PRODUCTS.map(p => {
+            const name = activeTab === 'generic' ? p.generic : p.name;
+            return name ? name[0].toUpperCase() : '';
+        }));
+
+        letters.forEach(l => {
+            const btn = document.createElement('button');
+            btn.className = 'az-btn' + (used.has(l) ? '' : ' disabled');
+            btn.dataset.letter = l;
+            btn.textContent = l;
+            bar.appendChild(btn);
+        });
+    }
+
+    function bindEvents() {
+        const mainInput = document.getElementById('mainSearch');
+        const sideInput = document.getElementById('sidebarSearch');
+
+        mainInput.addEventListener('input', e => {
+            searchQuery = e.target.value.trim().toLowerCase();
+            sideInput.value = e.target.value;
+            activeLetter = 'all';
+            syncAZ();
+            render();
+        });
+
+        sideInput.addEventListener('input', e => {
+            searchQuery = e.target.value.trim().toLowerCase();
+            mainInput.value = e.target.value;
+            activeLetter = 'all';
+            syncAZ();
+            render();
+        });
+
+        document.getElementById('sidebarNav').addEventListener('click', e => {
+            const item = e.target.closest('.sidebar-nav-item');
+            if (!item) return;
+            activeCat = item.dataset.cat;
+            activeLetter = 'all';
+            syncAZ();
+            document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            render();
+        });
+
+        document.querySelectorAll('.prod-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.prod-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeTab = btn.dataset.tab;
+                buildAZBar();
+                render();
+            });
+        });
+
+        document.getElementById('azBar').addEventListener('click', e => {
+            const btn = e.target.closest('.az-btn');
+            if (!btn || btn.classList.contains('disabled')) return;
+            activeLetter = btn.dataset.letter;
+            syncAZ();
+            searchQuery = '';
+            mainInput.value = '';
+            sideInput.value = '';
+            render();
+        });
+    }
+
+    function syncAZ() {
+        document.querySelectorAll('.az-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.letter === activeLetter);
+        });
+    }
+
+    function filteredProducts() {
+        return PRODUCTS.filter(p => {
+            if (activeCat === 'rx') { if (!p.rx) return false; }
+            else if (activeCat !== 'all') { if (p.category !== activeCat) return false; }
+
+            if (activeLetter !== 'all') {
+                const name = activeTab === 'generic' ? p.generic : p.name;
+                if (!name || name[0].toUpperCase() !== activeLetter) return false;
+            }
+
+            if (searchQuery) {
+                const fields = [p.name, p.generic, p.therapeuticClass, p.form].join(' ').toLowerCase();
+                if (!fields.includes(searchQuery)) return false;
+            }
+            return true;
+        });
+    }
+
+    function render() {
+        const results = filteredProducts();
+        const grid = document.getElementById('prodGrid');
+
+        document.getElementById('resultCount').innerHTML = `Showing <strong>${results.length}</strong> product${results.length !== 1 ? 's' : ''}`;
+
+        const tabLabels = { trade: 'Trade Name', generic: 'Generic Name', class: 'Therapeutic Class' };
+        const catLabels = { all: 'All', maternal: 'Maternal Health', wellness: 'Sexual Wellness', vitamins: 'Vitamins & Supplements', rx: 'Prescription Only' };
+        document.getElementById('sectionLabel').textContent = `Pharmaceuticals Products — ${catLabels[activeCat]} — Search By ${tabLabels[activeTab]}${activeLetter !== 'all' ? ' · ' + activeLetter : ''}`;
+
+        if (results.length === 0) {
+            grid.innerHTML = `
+                <div class="prod-empty">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <h4>No products found</h4>
+                    <p>Try a different search term or clear the filter layout variables.</p>
+                </div>`;
+            return;
+        }
+
+        const sorted = [...results].sort((a, b) => {
+            const na = activeTab === 'generic' ? a.generic : a.name;
+            const nb = activeTab === 'generic' ? b.generic : b.name;
+            return (na || '').localeCompare(nb || '');
+        });
+
+        grid.innerHTML = sorted.map(p => cardHTML(p)).join('');
+    }
+
+    function badgeInfo(p) {
+        if (p.rx) return { cls: 'rx', label: 'Rx' };
+        if (p.category === 'maternal') return { cls: 'maternal', label: 'Maternal' };
+        if (p.category === 'wellness') return { cls: 'wellness', label: 'Wellness' };
+        if (p.category === 'vitamins') return { cls: 'vitamins', label: 'Vitamins' };
+        return { cls: 'rx', label: '' };
+    }
+
+    function cardHTML(p) {
+        const b = badgeInfo(p);
+        const mainName = activeTab === 'generic' ? p.generic : p.name;
+        const subName = activeTab === 'generic' ? p.name : p.generic;
+        const detailURL = `product-detail.html?id=${p.id}`;
+
+        const imgContent = p.img
+            ? `<img src="${p.img}" alt="${p.name}" loading="lazy" />`
+            : `<div class="pcard__img-placeholder">
+                   <div class="pcard__img-placeholder-icon">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2H15L21 8V22H3V2H9Z"/><path d="M15 2V8H21"/><path d="M12 11v6m-3-3h6"/></svg>
+                   </div>
+                   <div class="pcard__img-placeholder-name">${p.name}</div>
+                 </div>`;
+
+        return `
+            <a class="pcard" href="${detailURL}">
+                <div class="pcard__img">
+                    ${imgContent}
+                    <span class="pcard__badge pcard__badge--${b.cls}">${b.label}</span>
+                </div>
+                <div class="pcard__body">
+                    <div class="pcard__name">${mainName}</div>
+                    <div class="pcard__generic">${subName}</div>
+                    <div style="font-size:0.75rem; font-weight:700; color:var(--teal); margin-top:0.4rem; letter-spacing:0.02em;">Inquire for Price &amp; Availability</div>
+                </div>
+                <div class="pcard__footer">
+                    <span class="pcard__form">${p.form}</span>
+                    <span class="pcard__find">
+                        View Details
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>`;
+    }
+
+    // Helper exposed for footer quick-jump interactions
+    window.filterCatFromFooter = function(cat) {
+        activeCat = cat;
+        document.querySelectorAll('.sidebar-nav-item').forEach(i => {
+            i.classList.toggle('active', i.dataset.cat === cat);
+        });
+        activeLetter = 'all';
+        syncAZ();
+        render();
+        window.scrollTo({ top: document.getElementById('sidebar').offsetTop - 120, behavior: 'smooth' });
+        return false;
+    };
+  </script>
+  <script src="products-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

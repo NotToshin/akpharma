@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akpharmabd.com/sitemap.xml
