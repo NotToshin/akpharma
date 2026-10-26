@@ -557,6 +557,7 @@
       }
     }
   </style>
+  <script src="products-data.js"></script>
 </head>
 <body>
 
@@ -695,18 +696,22 @@
     let ALL_PRODUCTS_DATABASE = [];
 
     function initializeProductDetail(dataList) {
-        ALL_PRODUCTS_DATABASE = dataList;
+        ALL_PRODUCTS_DATABASE = dataList || [];
         const params = new URLSearchParams(window.location.search);
-        const currentId = params.get('id');
+        let currentId = params.get('id');
 
-        if (!currentId) {
-            renderErrorWorkspace("Please select a product from the products directory.");
-            return;
+        // Graceful default: if no ID specified, default to first product
+        if (!currentId && ALL_PRODUCTS_DATABASE.length > 0) {
+            currentId = ALL_PRODUCTS_DATABASE[0].id;
         }
 
         const targetProduct = ALL_PRODUCTS_DATABASE.find(p => p.id === currentId);
 
         if (!targetProduct) {
+            if (ALL_PRODUCTS_DATABASE.length > 0) {
+                // Fallback to first product
+                return initializeProductDetail(ALL_PRODUCTS_DATABASE);
+            }
             renderErrorWorkspace("The requested product could not be found.");
             return;
         }
@@ -760,8 +765,7 @@
         renderLayoutRelatedModule(targetProduct);
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Adjust navbar for detail page
+    function startProductDetail() {
         const navbar = document.getElementById('mainNav');
         if (navbar) {
             navbar.style.backgroundColor = "#142b3e"; 
@@ -770,18 +774,32 @@
             navbar.style.zIndex = "9999";              
         }
 
-        if (typeof AK_PRODUCTS !== 'undefined' && Array.isArray(AK_PRODUCTS)) {
-            initializeProductDetail(AK_PRODUCTS);
+        const localData = (typeof window !== 'undefined' && Array.isArray(window.AK_PRODUCTS))
+            ? window.AK_PRODUCTS
+            : (typeof AK_PRODUCTS !== 'undefined' && Array.isArray(AK_PRODUCTS) ? AK_PRODUCTS : null);
+
+        if (localData && localData.length > 0) {
+            initializeProductDetail(localData);
         } else {
             fetch('products.json', { cache: "no-store" })
                 .then(res => res.json())
                 .then(dataList => initializeProductDetail(dataList))
                 .catch(error => {
                     console.error(error);
-                    renderErrorWorkspace("Unable to load product information.");
+                    if (typeof AK_PRODUCTS !== 'undefined') {
+                        initializeProductDetail(AK_PRODUCTS);
+                    } else {
+                        renderErrorWorkspace("Unable to load product information.");
+                    }
                 });
         }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startProductDetail);
+    } else {
+        startProductDetail();
+    }
 
     /* ── Image Display Operations Render Engine ──────────────── */
     function renderLayoutImagePanel(p) {

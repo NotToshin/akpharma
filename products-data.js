@@ -9,7 +9,7 @@
  * Copy a product object, paste it into the AK_PRODUCTS array, and update the values.
  */
 
-const AK_PRODUCTS = [
+var AK_PRODUCTS = [
   {
     "id": "ova-wom",
     "name": "Ova-Wom",

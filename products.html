@@ -50,6 +50,7 @@
     }
   }
   </script>
+  <script src="products-data.js"></script>
 </head>
 <body>
 
@@ -258,24 +259,49 @@
         render();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Try local JS data first (works on file:// without web server)
-        if (typeof AK_PRODUCTS !== 'undefined' && Array.isArray(AK_PRODUCTS)) {
-            initializeCatalog(AK_PRODUCTS);
+    function startCatalog() {
+        // Parse category from URL query parameters (e.g. ?filter=maternal)
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('filter') || urlParams.get('cat');
+            if (catParam && ['maternal', 'wellness', 'vitamins', 'rx'].includes(catParam)) {
+                activeCat = catParam;
+                document.querySelectorAll('.sidebar-nav-item').forEach(i => {
+                    i.classList.toggle('active', i.dataset.cat === catParam);
+                });
+            }
+        } catch(e) {}
+
+        const localData = (typeof window !== 'undefined' && Array.isArray(window.AK_PRODUCTS))
+            ? window.AK_PRODUCTS
+            : (typeof AK_PRODUCTS !== 'undefined' && Array.isArray(AK_PRODUCTS) ? AK_PRODUCTS : null);
+
+        if (localData && localData.length > 0) {
+            initializeCatalog(localData);
         } else {
-            // Fallback to fetch products.json for web server
             fetch('products.json', { cache: "no-store" })
                 .then(response => response.json())
                 .then(data => initializeCatalog(data))
                 .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('prodGrid').innerHTML = `
-                        <div class="prod-empty">
-                            <p style="color:var(--accent, red);">Unable to load product list.</p>
-                        </div>`;
+                    console.error('Error loading products.json:', error);
+                    // Last resort fallback
+                    if (typeof AK_PRODUCTS !== 'undefined') {
+                        initializeCatalog(AK_PRODUCTS);
+                    } else {
+                        document.getElementById('prodGrid').innerHTML = `
+                            <div class="prod-empty">
+                                <p style="color:var(--accent, red);">Unable to load product list.</p>
+                            </div>`;
+                    }
                 });
         }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startCatalog);
+    } else {
+        startCatalog();
+    }
 
     function calculateSidebarCounters() {
         document.getElementById('cnt-all').textContent = PRODUCTS.length;
