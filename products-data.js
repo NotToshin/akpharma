@@ -150,7 +150,7 @@ var AK_PRODUCTS = [
     "form": "Film-Coated Tablet",
     "packSize": "30 Film-Coated Tablets",
     "rx": false,
-    "img": "",
+    "img": "products/drostility.jpg",
     "images": [],
     "strength": "25 mg",
     "manufacturer": "AK Pharma Health Sciences",
